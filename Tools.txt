@@ -1,0 +1,38 @@
+Tools
+
+
+VSCode extensions (see under Extensions sidebar)
+    Babel JavaScript- helps with syntax highlights
+    Bracket Pair Colorizer- pairs match in color
+
+
+Servers
+    Run a simple server with python
+        https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server#Running_a_simple_local_HTTP_server
+
+
+To look into
+
+    Webpack
+    Next.js
+    Gatsby
+
+
+React 
+
+    create-react-app
+        https://reactjs.org/docs/create-a-new-react-app.html
+        // pre-configures Babel and Webpack
+
+js
+    Node
+
+
+Basic
+    NPM
+
+
+
+Chrome Extensions
+
+    React DevTools- red icon, devtools has React tab to inspect

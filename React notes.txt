@@ -1,0 +1,355 @@
+React Courses to Review
+
+React Basics X
+React Components in-progress
+React Router 4 Basics
+React Context API
+REST API Authentication with Express
+
+
+
+React Basics
+
+    React is JS library for building UI
+    
+    set up with npm - "create-react-app" or CDN link
+
+    React- main React functions
+    ReactDOM- build native appw, lets React connect to DOM
+
+    React Elements
+
+        const intro = React.createElement(
+            'h1', // type of element
+            { id: 'intro' }, // attributes (null if none)
+            'Here is my first element' // elements contents, can be more elements
+        )
+
+        when rendered:
+        <h1 id="intro">Here is my first element</h1>
+
+
+        to render (create item and put in DOM)
+
+            ReactDOM.render(
+                intro, // element to be rendered
+                document.getElementById('root') // container element, div is in HTML with id="root"
+            )
+
+    JSX
+        syntax extension to JS used w React to describue UI elements
+        HTML alternative w/in JSX
+
+        const sentence = "This is a sentence"
+        const header = (
+            <header>
+                <h1>Here is my first element</h1> 
+                <p className="paragraph"> { sentence } </p>  // JSX expression- JS within the {} 
+                    // JSX camelcase naming (className etc)
+                    // {/* JSX comments in curly braces */}
+            </header>
+        );
+        // then render "header" var
+        
+        use JSX w/ build stack or add:
+                                 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+                                <script type="text/babel" src="./app.js"></script> // add type to existing script
+
+    React Components
+
+        Reusable UI pieces
+        Define as function or class, display w/ JSX tag
+        Each component should be responsible for one action/function
+
+        function Header() {  // capital name only
+        // or const Header = () {
+            return (
+                <header>
+                    <h1 className="title">Title</h1>
+                    <Player /> // child component
+                </header>
+            );
+        }
+        // render w JSX tag
+        React.DOM.render(
+            <Header />,  // self-closing if no children
+            document.getElementById('root')
+        )
+
+        Typically App component contains all other Components
+
+    Props
+
+        properties used to pass data to component
+            contains children and attributes
+
+            in App    
+            <Header 
+                title="Scoreboard" 
+                players={ 2 } 
+                score- { 3 } />
+            // now available to use in header
+
+            in Header
+            const Header = (props) = {
+                return (
+                    <h1>{ prop.title }</h1>  // props are "read only", can't insert "=" and new value
+                    <p> Players { props.players } </p>
+                    <Score score= {props.score } />  // pass down into another component
+                )
+            }
+
+        Map
+            const players = []; // array of players inside
+
+            ReactDom.render(
+                <App players={ players } />
+            )
+
+            const App = (props) => {
+                return (
+                    {props.players.map( player =>    // JS expression, so put in {}
+                        <Player
+                            name={player.name}
+                            score={player.score}
+                        />
+                    )
+
+                    }
+                )
+            }
+
+        Key
+            quick way to id item, unique key prop
+            set id: 1 for each object
+            <Player 
+                ...
+                key={player.id}
+
+
+    State
+        data that you want to change- dynamic
+        only available to class component (not function)
+            functional component if just using props (stateless)
+        still use props to get data into component
+
+            class Counter extends React.Component {
+                
+                //    Initialize state
+            constructor() {  // JS class constructor
+                super() // call constructor of component class
+                this.state = { // initialize state
+                    score: 0;
+                };
+            }
+
+            // can also skip constructor and do 
+                state = {
+                    score: 0
+                }
+
+            // put other functions here ex. click event
+            incrementScore() {
+                // update state
+                    // tells React to re-render state, update previous state
+                this.setState( prevState => {(   // wrap in parens to skip "return {"
+                    // pass state object and change
+                    score: prevState.score + 1
+                )}
+                });
+            }
+                
+                render() {
+                    return(
+                        <button onClick={this.incrementScore.bind(this)}>{ this.state.score }</button>
+                        // .bind(this)- connects function to class instance, otherwise "this" in function not defined
+                        // can also do onClick={() => this.incrementScore()} instead of bind, arrow function binds to scope in which defined
+                        // or can do incrementScore as arrow function
+                        // "this" means in class component
+                        // this.props.score if using props
+                    )
+                }
+            }
+
+        Application State- in App component- available to all
+        Component State- just available to component
+
+        Delete from State
+
+            handleRemovePlayer = (id) => {
+                this.setState( prevState => {
+                    return {
+                        players: prevState.players.filter( p => p.id !== id)
+                        // get all players and filter out all but id called
+                    }
+                });
+            }
+
+
+            // player component
+            <Player 
+                name={player.name}
+                key={player.id.toString()}
+                id={player.id}
+                removePlayer={this.handleRemovePlayer}
+
+             // delete button
+             <button className="remove-player" onClick={ () => props.removePlayer(props.id)  }>✖</button>
+                // anonymous function that returns call to function from props
+            
+
+React Components
+
+    Get started with npx create-react-app projectname
+    // npx installs and runs, avoid needing create-react-app installed globally
+    cd projectname
+    npm install
+    npm start
+
+    import and export modules
+    file for each component as module
+        import React from 'react';
+        import React, { Component } // for classes
+            // then can start w- class Counter extends Component {
+
+        export default Header; // at bottom of function
+
+        // in App
+        import Header from '/Header'
+
+        export default App // at bottom
+
+        // in index.js
+        import App from '/components/App' 
+
+
+    Lift State Up- if 2+ components need access to state
+        move as high as possible
+        then can pass as props to lower components
+
+        // App.js
+
+        handScoreChange = (index. delta) = {  
+            // delta will tell amount to change score
+            // index will determine which player to change
+            this.setState( prevState => ({
+                score: prevState.players[index].score += delta
+            }));
+        }
+
+        render() {
+            return (
+                {this.state.players.map( (player, index) => 
+                <Player
+                    ...
+                    index={index}
+                    changeScore={this.handleScoreChange}
+                        // callback function
+
+        // Player.js
+
+            <Counter    
+                changeScore={props.changeScore}
+                index={props.index}
+
+
+        // Counter.js
+
+            // above return
+            let index = props.index
+
+            return (
+            <button onClick={ () => props.changeScore(index, -1)}
+
+
+    Passing Down Data
+
+        Stats.js within Header.js
+
+        // App.js
+        <Header
+            players={this.state.players}
+
+        //Header.js
+            <Stats players={props.players}
+
+
+        // Stats
+            const totalPlayers = props.players.length
+            // reduce has callback on each element in array
+            // takes 2 param, accumulator and current item
+            // initialize total to 0 at end
+            const totalPoints = props.players.reduce(total, player) => {
+                return total + player.score;
+                // adds player score to total for each
+            }, 0);
+
+            return (
+                <p>{ totalPlayers }</p>
+                <p> { totalPoints }</p>
+            )
+
+    Controlled Component    
+        initialize state for value of input and listen for changes
+        event handler to udate state
+
+
+        class AddPlayerForm extends Component {
+            
+            // state initialized
+            state = {
+                value: ''
+            };
+            
+            // function updates state onChange
+            handleValueChange = (e) => {
+                this.setState({ value: e.target.value  })
+            }
+
+            //  callback function to access player state in App.js
+            handleSubmit = (e) => {
+                e.preventDefault(); // don't reload page/lose info
+                this.props.addPlayer(this.state.value);
+                    // addPlayer prop passed from App.js
+                    / this.state.value passed to addPlayer function as name
+                this.setState({ value: '' }) // clear out form when done
+            }
+
+            render() {
+                return (
+                    <form onSubmit={this.handleSubmit}> // executes handleSubmit function
+                        <input
+                            type="text"
+                            placeholder="New name here"
+                            value={this.state.value}
+                                // onChange updates immediately upon value entry
+                            onChange={this.handleValueChange}
+
+                        />
+                        <input
+                            type="submit"
+                            placeholder="add player"
+                        />
+                        )
+                    }
+                }
+
+            // App.js
+            <AddPlayerForm addPlayer={this.handleAddPlayer} />
+
+            prevPlayerId = 1;
+            
+            handleAddPlayer = (name) => {
+                this.setState( prevState => { // use prevState to ensure update
+                    return {
+                        players: [
+                            ...prevState.players, // spread operator represents existing players
+                            {
+                                name: name, // can just write name
+                                score: 0,
+                                id: this.prevPlayerId += 1 // increments by 1 from preloaded
+                            }
+                        ]
+                    })
+            }
+
