@@ -1,0 +1,84 @@
+HTML Forms
+
+<form action="where-to-submit.html" action="get"> // or post
+    <h1>Sign up</h1>
+    <fieldset> // sub-section
+        <legend><span>1</span>Your basic info</legend> // sub-section heading, can format span
+        <label for="name">Name:</label>
+        <input type="text" // type of input
+            id="name" // identifier for CSS and for labels
+            name="user_name"> // sent when submitted
+        <input type="email" id="mail" name="user_email">
+
+        <label>Age</label> // no "for" bc not associated with field, just header for area
+            <input type="radio" id="under_18" value="under_18" name="user_age">
+        <label for="under_18" class="light">Under 18</label>
+        <br/>
+            <input type="radio" id="over_18" value="over_18" name="user_age">
+        <label for="over_18" class="light">18+</label>
+        // name attribute is the same so can't select multiple
+
+    </fieldset>
+    <fieldset>
+        <legend><span>2</span>Biography</legend>
+        <textarea id="bio name="user_bio">
+        </textarea>
+        <label for="job">Job Role</label>
+        <select id="job" name="user_job">
+            <optgroup label="web">
+                <option value="frontend_dev">Front End Developer</option> // value shows what submitted
+                // etc
+            </optgroup>
+            <optgroup label="web">
+                <option value="frontend_dev">Front End Developer</option> // value shows what submitted
+                // etc
+            </optgroup>
+        </select>
+
+        <label>Interests</label>
+        <input type="checkbox" id="dev" value="interest_dev" name="user_interest">
+            <label class="light" for="dev">Dev</label>
+        <br/>
+             <input type="checkbox" id="design" value="interest_design" name="user_interest">
+            <label class="light" for="design">Design</label>
+        
+    </fieldset>
+    <button type="submit">Sign up</button>
+
+
+JS Landscape- possibilities, versions/add-ons
+
+JS Conditionals
+
+    if/else if/else if/else - multi-way branch
+
+    Switch statement
+
+        switch (day) {
+            case 0: 
+                console.log('Sunday');  // if day = 0, do this
+                break; // jumps to next section
+            case 1: console.log('Monday');
+                break;
+            // etc.
+            default:
+                console.log('invalid entry');
+                break;
+        }
+
+    Ternary Operator
+
+        boolean, if true, if false
+
+        var isTrue = true;
+        isTrue ? console.log('yes') : console.log('no')  // if isTrue=true 'yes'
+
+        var yesOrNo = isTrue ? 'yes' : 'no';
+
+        console.log(yesOrNo) // yes 
+
+    Short Circuit Evaluation
+
+        console.log(3 === 3 && false && 1 === 1)  // false, takes first false
+        console.log(3=== 4 || 'cow' || 'chicken') // cow, first truthy value, if all false prints last value
+        

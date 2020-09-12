@@ -1,0 +1,1002 @@
+HTML and CSS Intro
+
+    headings <h1> to <h6>
+
+    CSS
+        // index.html
+        <head>
+            <p class="location">Hey</p>  // nested within head
+        <head>
+        
+        // styles.css
+        .location { // class
+            background-color: blue;
+        }
+
+
+    Structure
+
+        <!doctype html>  // sets file type
+        <html lang="en">
+            <head>
+                <meta name="viewport" content="width-device-width, initial-scale-1.0">
+                <link rel="stylesheet" href="styles.css" // connects to CSS
+                <title>Important Site</title> / for browsers
+                // also font links here
+            </head>
+            <body>
+                <header>  // site name, navigation, intro
+                    <img src="images/me.jpg" alt="picture of me" class"profile-img"> // image tag
+                    <h1>TItle</h1> // headings h1 to h6
+                <header>
+                <main> // bulk of info
+                    <p>1st paragraph</p> // p tags split up text
+                    <a href="www.google.com" target="_blank"> // anchor tag links
+                                // target blank opens new tab
+                        <p>2nd paragraph</p>
+                        <ul> // or <ol>
+                            <li>1st</li>
+                            <a href="home.html" alt="homepage">  // internal link
+                                <li>2nd</li><
+                            /a>
+                        </ul>
+                    </a>
+                </main>
+                <footer> 
+                </footer> // copyright, social media, links
+            </body>
+        </html>
+
+
+    CSS
+
+        // CSS rule- ea selects tag amd assigns properties
+
+        body {  // tag selector
+           color: #00AA00; // propert: value, use hexadecimal color pickers
+        }
+
+        .card-title {  // class selector
+            text-align: center;
+            border: 3px solid red;
+            border-radius: 5px;  // rounding edge
+            padding: 5px; // sppace inside eleemnt border box
+            margin: 2px; // space outside border box
+            font-family: Arial;
+            // css-tricks.com almanac
+        }
+
+JavaScript Basics
+
+    Console- can run JS in the console
+        up arrow to get past code
+        shift + enter to add new line without running code
+        see console for errors- shows line #, one at time
+
+
+    JS statement
+        alert("hey");
+        console.log("hey"); // print to console
+            one statement runs/executes at a time
+
+    JS file
+        script.JS
+
+        // index.html
+        <head> // or more often at end of body (after text loads)
+            <script src="script.js"></script>
+
+    Variable - saves info in a program (a box holding info)
+        identified with name
+        var score; // declare
+        score = 0; // assign
+        score = 10; // can reassign, only use var in 1st instance
+            // or score = score + 10  // update based on current value
+                // shorthand- score += 10
+        can add variables
+            score + otherScore 
+        
+        var name = "Ben" // quotes for text value
+        console.log(name) // reference var w/o quotes
+
+        name rules- many reserved words- can't use
+
+        const score // best choice for declaring variables
+            // can't overwrite, can't edit/redeclare
+            score += 5 // error
+        let score // allows score to change, can only declare 1x
+
+    Spacing
+        const days = 7;
+
+    Strings
+        words/text
+        "My name is Ben"
+        'I\'m a programmer' // can use double quotes or escape char \
+
+        const name = Ben
+        console.log(name.length) // 3
+            // dot means properties follow 
+            // method- takes action
+                console.log(name.toLowerCase()); // ben
+                const name = prompt('What's your name');
+                    // returns a value- sent to browser
+                        console.log(name) // returns entry
+        
+        Combine Strings
+            concatenate
+                const first = "my favorite" 
+                const second =  first + " movie" // include space
+
+        Template Literal
+            const message = `Hello ${name}` // with backticks, template literal is evaluated and added
+
+    Insert JS into page 
+
+            document.querySelector('main').innerHTML = message ;   // accesses main element, replaces content
+
+    Conditional Statements
+
+        if ( answer === "No"  ) { // evaluation
+            console.log("That's correct") // action if true
+        } else {
+           console.log("wrong"); // if not true
+        }
+
+        else if () // allows multiple outcomes, start w if, end w else
+    
+        Can use =, also >, <
+            number is less than letter, a < b
+            3 == '3', 0 == '' // true
+            3 === '3' // false
+            !== // strict inequality
+            10 != '10' // true
+            var number = '10'
+                +number === 10 // + converts to number
+
+        Booleans- true or false, no quotes around, can assign to variables
+
+        if (20 < age && age < 30)  // And operator- both true = true
+        if (20 < age || age < 20) // or Operator- one true = true
+
+Javascript Numbers
+
+    integer or decimal or sci notation, store w/o quotes    
+        var one = 1.1
+        var two = 1 + 1 // 2
+        var three = one + two // 3
+        var score += 2 // 2+2-4
+        var score -= 1 // 2-1 = 1
+         /= *=
+
+    strings concatenate
+        var three = "1" + "2" // 12
+        convert to number
+            var number = parseInt(string) // convert to number 
+                use console.log(typeof number) // number)
+                alos can do +number to convert
+            parseFloat(string)  / convert to number
+    test if number
+
+        number = "abc"
+        num = parseInt(number)
+        if (num)  // false
+
+    Math
+
+        strings and numbers are basic objects (primitive data type)
+        Math.round(1.9) // 2
+        Math.random() // 0-1
+        Math.floor(1.2) // 1, Math.ceil() opposite
+        Math.floor( Math.random() * 6 ) + 1 // 1-6
+             // dont use ceil() bc could be 0.0 which can't round up
+
+        Math.floor( Mathrandom() * (highNum - lowNum + 1)) + lowNum;
+        ex. 1 and 10- random is 0 * (10-1+1), floor of 0 is 0, + 1 = 1 
+                        random is .9 * (10-1+1), 9, floor of 9 is 9, + 1 = 10
+
+JavaScript Functions
+
+    set of repeatable instructions
+
+    function goToStore() {  // declare function
+        return "I went to the store"; // or alert('hey!')
+    }
+
+    goToStore(); // call function, says Hey!
+    console.log( goToStore() ); // logs "I went to the store"
+    const store = goToStore() // saves "I went.."
+
+    can include Conditional
+    function isEmpty () {    
+        const field = document.querySelector('#info');
+        if (!field.value) { 
+            return true
+            } else {
+                return false; // can't run any code in fxn after return
+            }
+    }
+
+    const test = isEmpty()
+
+    if (test) {
+        alert('empty')
+    }
+
+
+    Add info to Function - argument
+
+        function goToStore(store, food) {
+            return "went to ${store} and got ${food}"
+        }
+
+        goToStore(McDonalds, burger);
+
+    Scope
+        variable declared within function only used within function
+            function greeting() {
+                let person = "Bob" 
+                    // if no let, just person = "Bob", changes global var, always use let/const
+                    // can't do if const variable
+                alert(Hi ${person}");
+            }
+            let person = "Bill"
+            alert("Hi, ${person}) //Bill
+            greeting(); // Bob
+
+
+    Function Expression (vs. declaration)
+        const getNumber = function(number){  // anonymous fxn stored in var
+            ...
+        };
+        getNumber(3); // call
+            // call same way, but declaration can go after fxn called bc declarations loaded 1st
+
+    Arrow Functions
+
+        // use with experssions and anonymous fxns
+        const arrow = () => {
+            ...
+        }
+
+    Default params
+
+        function greeting(name = 'student') ...
+           // avoid return undefined for greeting();
+
+    Error
+        if (isNaN(number)) {
+            throw Error("Must be a number");
+        }
+
+Javascript Loops
+
+    way to repeat a # of times or until a condition is true
+
+    while Loops
+
+        while (condition) {
+            runs until condition is true
+        }
+
+        let counter = 0;
+        while (counter < 10) {
+            console.log(`random number is ${getRnadom(10)}`);
+            counter++; // adds 1, -- subtracts 1 (increment/decrement)
+        }
+
+    do.. while
+
+        runs at least once (even if condition false)
+
+        do {
+            console.log(`random number is ${getRnadom(10)}`);
+            counter++;
+        } while (counter < 10);
+
+        avoid infinite loop- always set condition to evetually be false
+
+    for loop
+
+        more compact, like while
+
+        for (let i = 0, i < 10, i++) {
+            console.log(`random number is ${getRnadom(10)}`);
+        }
+
+    add to html
+
+        const main = document.querySelector('main');
+        let html;
+
+        for (let i = 1; i <= 10, i++) {
+            html += `<div>${i}</div>`; // displays 1-10
+        }
+
+        main.innerHTML = html
+
+    Break- exit loop early
+
+        for...
+        let guess = prompt('Guess my name');
+        if (guess == "Ben") {
+            alert('correct');
+            break;
+        }
+
+    minimize lines of code w. loops and functions wherever repetition
+        ex. 
+        function randomValue() ... // gets #
+        function randomRGB(value) { 
+            const color = `rgb( ${value()}, ${value()}, ${value()} )`;
+                // function takes an argument that is used as a function name
+            // return color;
+        }
+
+        for ...    
+        html += `<div style="background-color: ${randomRGB(randomValue)}">${i}</div>`;
+
+Arrays
+    way to store data in JS
+    list of items
+
+    const list = [
+        'apple', 
+        'banana', 
+        'orange'
+        ]; 
+        // declare with variable, list of strings, numbers, etc.
+
+    access with index value- start w/ 0
+        console.log(list[0]) // apple
+
+    length  
+        list.length // 3, number of items
+
+    push
+        list.push('grapes') // added tp end of array, can add >1
+
+    unshift
+        list.unshift('berries') // same but add to beginning
+
+    pop 
+     list.pop() // removes last elemenet, and can save it if assigned to var
+
+    shift
+        list.shift() // removes 1st element
+    
+    spread operator
+        const array = [1, 2, 3]
+        const arrayB    = ["a", "b", ...array, "c"]
+            // "..." adds array contents
+            combine 2 Arrays
+                const second = [...brass, ...percusion]
+            math with Arrays
+            Math.min(...numbers) // access content, find smallest #
+
+    Iterate over Arrays
+        const students = []; // list of students
+        function createListItems(students) {
+            let items = '' // hold full results
+            for ( let i = 0; i < students.length; i++) { // is condition < array length
+                // add one each time through
+                items += "<li>${ students[i] }</li>"; // adds each student to items
+            }
+            return items;
+        }
+
+        // add to page
+        document.querySelector('main').innerHTML =
+            `<ul>
+                ${createListItems(students)} // call fxn
+            </ul>`
+        
+    Join
+        arr.join(", ")
+            // puts all array in string with comma and space between each
+
+    Includes
+        arr.includes("pear")    
+            // true or false if in array
+
+    indexOf
+        arr.indexOf('pear')
+            //returns position, ex. 0
+            // -1 if not found
+
+    Search value and position
+
+        const inStock = []; // array of products
+        const search= = prompt('search here');
+        let message;
+
+        if ( !search ) {  // no search entry
+            message = `<p>In stock: $(inStock.join(', ')}` // prints full inventory
+        } else if (inStock.includes(search.toLowerCase()) ) {  // to lower to avoid missing match
+            message = `yes. It's ${instock.indexOf(search.toLowerCase()) + 1} on the list`
+            // +1 so not 0 base
+        } else {
+            message = 'no'
+        }
+
+        document.querySelector('main').innerHTML = `<p>$message</p>`
+
+    Multidimensional Arrays
+
+        const array = [1, 2, ['a', 'b'], 3]
+            const b = `${array[2][1]} // b
+        
+        print to page w/ loop w/ `${arr[i][0]} by ${arr[i][1]}`
+
+JS objects
+
+    JS is object-based language- has properties and methods
+    store, access, edit data
+
+    Object Literal- data container
+
+        const student = {
+            name: "Ben",
+            age: 29,
+            numbers: [1, 2, 3]
+                // key: value pair
+        }
+
+        Access properties
+            student['name'] or student.name
+            let message = `Hi I'm ${student.name}`
+
+        Set value
+            student.name = "Allison" // set value
+            student.nickname = "Alli" // new prop and value
+            studnet.numbers.length // 3
+            student.numbers.join(", ")  // 1, 2, 3
+
+
+        Loop an object
+            "for.. in"
+            
+            for ( let prop in studnet ) {  // prop just represents property name- can name whatever
+                console.log(`${prop}: ${student[prop]}`);
+                    // bracket notation to access property value
+                    // name: Ben, age: 29 etc.
+            }
+
+        Object.keys() = returns array of property names (aka keys)
+            Object.keys(student)
+                // "name", "age" , "numbers"
+            Object.keys(student).length // use this bc object doesn't have length directly
+
+        Object.values()- returns prop values
+            Object.values(student) // Ben, 29, etc.
+
+        Spread operator can pull key value pairs into other objects
+
+            const person = {
+                ...student
+                }
+            
+            const person = {
+                name: "Ben" 
+                etc.
+            }
+
+    Array of objects
+
+        const questions = [
+            { 
+                question: "what?",
+                answer: "y"
+            },
+            {
+                question: "who?",
+                answer: "y"
+            }
+        ]
+
+        access with 
+            for (let i = 0; i < questions.length; i++) {
+                let question = questions[i].question 
+                let answer =   questions[i].answer
+                // etc. - add to html
+            }
+
+CSS Selectors
+
+
+    Element selector- based on element type, unique
+
+        p {
+            color: red;
+        }    
+
+    id selectors- based on id attribute
+
+        #header {
+            color: red;
+        }
+
+    class- based on class attribut, reusable
+
+        .profile {
+            color: red;
+        }
+
+    attribute selector- target any attribute by name
+
+        [title] {
+            color: red;
+        }
+
+        input[type="text"] {  // target more with tag name
+            ...
+        }
+
+    Pseudo-Classes
+        keyword to act based on element statement
+
+        
+        :hover
+
+            a:hover {
+                ...
+            }
+        
+        :link - unvisited link
+
+        :visited
+
+    Descendant Selectors- target based on relation to other element
+
+        header span { // span within header
+        #nav a { // link within nav
+
+    Combinators- direct relationship (includes descendant)
+
+        ul > li { // direct children li of ul
+
+        img + p { // adjacent siblings
+
+        header - div // general siblings- all divs that are after header
+
+        li:first-child { // first li element in siblings
+
+        li:last-child {
+
+        nth-child() 
+            li: nth-child(even) // even li's
+             li: nth-child(even)
+              li: nth-child(3) // every 3rd
+        
+    Selectors in JS
+
+        retrieve elements with CSS selectors ex. id
+            read content, change content, change attributes
+            create new elements, respond to user events
+
+        if style is only for JS- use ".js-namehere" as class name
+            split design and behavior
+
+        data-namehere- custom attribute to store extra info
+            <li data-toppic="js">
+
+            [data-topic="js"] {
+                ...
+            }
+
+            // could use to set style based on "data-col="6" or 8
+            // can use for special JS actions
+
+    Naming classes- block-element- modified
+        nav, nav-item, nav-item-current
+
+
+ES2015
+
+    const- var won't change, avoid accidental overwrite, ex. pi
+        // can't totally overwrite, but can modify arrays, objects w/ const
+    let- when want to reassign, ex. score, allows local scope, ex. in loop
+
+    template literal -
+        Multiline string allowed 
+            const fruit = `
+            <ul>
+            <li> //etc `
+
+        Interpolate string- `This is ${person}`
+
+    arrow fxns
+
+        const arrow = (name, age) => {
+            ...
+        }
+            // change declaration to expression by assign to var
+            // remove fxn keyword
+            // can include argueents
+            // no parens needed if one arg
+            // brackets needed if one line & one arg
+        
+JS & DOM 
+
+    Chrome DevTools- use console
+        type code that will run
+        in global "window" object
+        window.alert() same as alert() in console
+
+    document object model (DOM)
+        document.getElementById('title').style.color = "red" // edit attribute
+        represent html on page, like map of webpage, like family tree- children
+
+    Event Handler
+        const heading = document.getElementById('title');
+        const myInput = document.getElementById('color');
+        const button = document.getElementById('button1')
+            button.addEventListener('click', () => { // event on button, function
+                heading.style.color = myInput; / change heading based on input
+            }
+
+    Tags Select
+        const myPara = document.getElementsByTagName('p')
+        myPara[0].style.color = "blue" // change 1st to blue
+
+        // loop through all
+        for(let i = 0; i < myPara.length, i++) {
+            myPara[i].style.color = "purple";
+        }
+
+    Class Select
+        const notPurple = document.getElementsByClassName('not-purple');
+
+        for(let i = 0; i < myPara.length, i++) {
+            myPara[i].style.color = "red";
+        }
+
+    QuerySelector, QuerySelectorAll
+
+        document.querySelectorAll('li') // all li's 
+        document.querySelector('li')  // first li
+        document.querySelectorAll('.not-purple') // all w/ class, tag, id or attrib, t
+
+    TextContent- read or set value
+        const firstLi = document.querySelector('li') 
+        firstLi.textContent // shows what it says
+        firstLi.textContent = "Hello" // sets value
+
+        button.addEvenetListener('click', () =>
+            firstLi.textContent = inputBox.value + "!";
+            // or innerHTML to change actual HTML
+            firstUl.innerHTML = '<li>Hey</li>';
+        )
+
+    Element.attribute
+        input.type // text
+        input.className // title
+        input.type = "checkbox" // switches
+        input.title = "title" // other attribute change
+
+        input.style.color = "red" // style refers to setting inline CSS rules
+
+        toggleList.addEventListener('click', () => {
+            if (listDiv.style.display == "none") {
+                toggleList.textContent = "hide";
+                listDiv.style.display == "block";
+            } else {
+                toggleList.textContent = "show";
+                listDiv.style.display = "none"
+            }
+        })
+
+    document.createElement("div");
+    append.child()
+
+        addItem.addEventListener('click', () => {
+            let ul = document.getElementsByTagName('ul')[0]
+            let li = document.createElement('li');
+            li.textContent = addItemInput.value;
+            // add to the dom
+            ul.appendChild(li);
+            // clear value of input after adding
+            addItemInput.value = ""
+        })
+
+    node.removeChild('li')  
+        // remove last item with "li:last-child"
+
+    Events- click, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout
+        keyup, keydown, load
+
+    function as parameter
+
+        function exec(func, arg) {
+            func(arg);
+        }
+
+        exec(function say(something) {
+            console.log(something);
+        }, 'Hi, there');
+        
+
+        or
+
+        exec((something) => {
+            console.log(something);
+        }, "Hello" );
+        
+
+    EventListener
+
+        const listItems = document.getElementsByTagName("li");
+
+        for (var i = 0; i < listItems.length; i ++ 1) {
+            listItems[i].addEventListener('mouseover', () => {
+            listItems[i].textContent = listItem.textContent.toUpperCase();
+        })
+        }
+
+        (repeat with mouseout & toLowerCase())
+
+
+    Events Bubble
+        click on li also hits ul, etc.
+
+        const listUL = document.getElementsByTagName("ul")[0];
+
+        listUL.addEventListener('mouseover', (event) => {
+            if (event.target.tagName = "LI") {
+            event.target.textContent = listItem.textContent.toUpperCase();
+            }
+
+    Traverse the DOM
+        remove items with click
+
+        listUL.addEventListener('click', (event) => {
+            if (event.target.tagName = "BUTTON") {  // remove button within Li
+                let li = event.target.parentNode; // li is parent of button
+                let ul = li.parentNode; // ul is parent of li
+                ul.removeChild(li);
+            }
+        })
+
+    Node.previousElementSibling
+        let li = listUl.querySelectorAll('li')[3]
+        let prevLi = li.previousElementSibling
+            // previousSibling includes empty text
+            // shows li #2
+        ul.insertBefore(li, prevLi) // puts li before prevLi
+            // moves item up the list
+            // default will move top item down to bottom- so need if statement to check if prevLi exists
+        
+        opposite- nextElementSibling
+            ul.insertBefore(nextLi, li) // puts nextLi before current li
+        
+    Get all the children of a node
+
+        function attachListItemsButtons(li) {
+            // create buttons w JS for each item
+            let up = document.createElement('button');
+            let down = document.createElement('button');
+            up.className= "up"
+            up.textContent = "up" // same for down
+            li.apendChild(up);
+        }
+
+        in handler that makes new items add-
+            attachListItemButtons(li)
+
+        can add to existing items with a for loop with this function
+
+
+    First and last child
+
+        li.firstElementChild
+        li.lastElementChild
+
+        const firstListItem = listUl.firstElementChild
+        firstListItem.style.backgroundColor = "blue";
+
+DOM Scripting
+
+    Get input from form- set handler- RSVP list
+
+        
+        const form = document.getElementById('register');
+        const input = form.querySelector('input');
+        const ul = document.getElemenetById('invitedguests');
+            // declare outside eventlistener to access outside as well
+        const div = document.createElement('div');
+        const filterLabel = document.createElement('label');
+        const filterCheckbox = document.createElement('input');
+        
+        // add checkbox to filter
+        const mainDiv = document.querySelector('.main');
+        filterLabel.textContent = "Hide anyone who hasn't responded";
+        filterCheckbox.type = 'checkbox';
+        div.appendChild(filterLabel);
+        div.appendChild(filterCheckbox);
+        main.insertBefore(div, ul);
+        filterCheckbox.addEventListener('change', (e) => {
+            const isChecked = e.target.checked;
+            const lis = ul.children;
+            if(isChecked) {
+                for (let i = 0; i < lis.length; i += 1) {
+                    let li = lis[i];
+                    if (li.className === 'responded') {
+                        li.style.display = ""; // show item
+                    } else {
+                        li.style.display = "none"; // hide item
+                    }
+                }
+            } else {
+                for (let i = 0; i < lis.length; i += 1) {
+                    let li = lis[i];
+                    li.style.display = '' // show all items
+                }
+
+            }
+        });
+
+        function createLI(text) {
+            const li = document.createElement('li');
+            const span = document.createElement('span')
+            span.textContent = text;  // puts text in a html element
+            li.appendChild(span);
+                    // add input text to li
+            const label = document.createElement('label');
+            label.textContent = "confirmed";
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox"
+            label.appendChild(checkbox); // add checkbox to label
+            li.appendChild(label)
+                // add checkbox to li
+            
+            const editButton = document.createElement("button");
+            editButton.textContent = "Remove"
+            li.appendChild(editButton); 
+            // add edit button
+
+            const removeButton = document.createElement("button");
+            removeButton.textContent = "Remove"
+            li.appendChild(removeButton); 
+            // add remove button
+            return li
+        }
+        
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // stops refresh on submit
+            const text = input.value
+            input.value = "" // clears input
+            const li = createLI(text);
+            ul.appendChild(li); // add li with text from input
+        })
+
+        // change styling when confirmed
+        ul.addEventListener('change', (e) => {
+            const checkbox = event.target;
+            const checked = checkbox.checked;
+            const listItem = checkbox.parentNode.parentNode;
+
+            if (checked) {
+                listItem.className = "responded";
+            } else {
+                listItem.className = "";
+            }
+        });
+
+        ul.addEventListener('click', (e) => {
+            if (e.target.tagName === "BUTTON") {
+                const button = e.target
+                const li = button.parentNode;
+                const ul = li.parentNode;
+                
+                if (e.target.textContent === 'Remove') {   // check if remove button
+                ul.removeChild(li);
+                // removes element
+                
+                } else if (button.textContent == "edit") {
+                    const span = li.firstElementChild;
+                    const input = document.createElement('input');
+                    input.value = span.textContent; // shows current name in span to edit
+                    input.type = 'text';
+                    li.insertBefore(input, span);
+                    li.removeChild(span);
+                    button.textContent = "save";
+                    // create input and remove current text
+    
+                } else if (button.textContent == "save") {
+                    const input = li.firstElementChild;
+                    const span = document.createElement('span');
+                    span.textContent = input.value; // shows current name in span to edit
+                    li.insertBefore(span, input);
+                    li.removeChild(input);
+                    button.textContent = "edit";
+                    // save input and switch back to edit
+                }
+            }
+        } )
+
+    Refactoring- look for duplicate code, make more readable
+
+            see createLI(text)  above
+            replace similar parts with function
+
+            function createElement(elementName, property, value) {
+                const element = document.createElement(elementName);
+                element[property] = value;
+                return element;
+            }
+                // get rid of createElement calls
+
+            function appendToLI(elementName, property, value) {
+                const element = createElement(elementName, property, value);
+                li.appendChild(element);
+                return element
+            }
+            // get rid of append element calls
+
+           //  for checkbox
+            appendToLI('label', 'textContent', 'confirmed').appendChild(createElement('input', 'type', 'checkbox'))'
+
+        if/else branching
+         function removeName(), editName(), saveName()
+         clears up if/else
+
+         go further - object
+
+            const nameActions = {
+                remove: () => {
+                //  paste function
+                }
+                // repeat with edit and save
+            }
+
+            // call function like this
+            nameActions.edit(); // same for remove and save
+
+            // further still- remove if statement
+            const action = button.textContent
+            nameActions[action]();
+            // select and run action in button name
+
+            can also validate- blank, duplicate, use local storage, change confirmed text when checked
+
+Debugging in JS
+
+    console.log() not efficient, leaves values behind to remove
+    want to stop program at point in time, look/change value at that time, then step line by line
+    Use ChromeDevTools
+
+    Command + Option + I
+
+    Click Sources- file tree on left, tools on right
+
+    Set breakpoint- event listener breakpoint  - ex. select change
+        pauses at first listener
+        click step over, line is highlighted then executed
+        can see exactly where it goes wrong
+        sometimes need to refresh
+        click side arrow to disable breakpoints
+        can change a variable in the console to try it
+
+        set a breakpoint on a line- click the line
+            if in a for loop, will stop each time through as press play button
+            can right click on line- set conditional breakpoint, ex className !== 'responded';
+
+        Debugging functions
+            click step-into button- keep clicking to go deeper in nested fxns
+                call stack window
+                    shows all functions actively running
+            can step out of current function with other button
+
+        JS Errors
+            Click on x red icon that shows console error
+                set breakpoint right before error
+                    click "pause exceptions" stops before error
+                    review scope on right and call stack
+
+            In inspector- look at html and right click on line where error appears
+                "break on" = subtree modification (ex)
+
+            
+            "Watch" on right- any expression ex. input.value
+                starts "", then fix "Joe"
+                
