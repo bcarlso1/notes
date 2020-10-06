@@ -1,0 +1,76 @@
+JS Ecosystem
+
+    JS runs on browser - client side
+        browser interactivity 
+        host objects- window, dom
+    
+    JS runs on server- back end 
+        APIs, databases, etc. 
+        node provides host objects 
+
+    Node JS
+        cross-platform runtime environment for server-side apps w JS 
+        host objects- http, https, etc. 
+        use for collaboration tools, games, etc.
+
+        npm - packages to help build projects 
+
+        Express- node framework- build scalable apps, servers ,etc.
+            Node limited out of box, so need frameworks 
+
+        command line interfaces- native apps 
+            CLI 
+            create react app
+            airbnb
+            instagram 
+            VSCode 
+
+            Electron, React 360 can be used to build native apps 
+
+    Front End JS libraries
+        React, Vue, & Angular
+            React makes UI components, extended to React native
+    Server-side- NextJS, NUXT
+
+    Testing JS 
+
+        Unit Tests- expected outcome of each function and test them 
+        Libraries for Testing   
+            Mocha
+            Jasmine 
+            Jest- many use w/ React 
+            Enzyme- testing for React 
+
+
+Node Basics
+
+    JS on the server side 
+    Node installed on computer
+        node -v 
+        node app.js // runs file 
+    
+    console.log // print msg
+    console.error // print error msg
+    console.dir // print object key/values 
+
+    node
+    1+2 //3, can do operations outside browser
+    name = "Ben"
+    name // Ben
+
+    Native objects- browser and server use
+        string, array, date, math 
+
+    Host objects- provided by environment   
+        window, document, history, XMLHTTPRequest
+    
+    Node uses Chrome's V8- Node JS Environment/Platform 
+
+    Most apps do one thing at a time until done- blocking language
+        NodeJS, handles requests while others finishing 
+            non-blocking, more efficient 
+
+    Use Node.js documentation site- nodejs.org 
+        API- objects and methods aka Documentation 
+
+    

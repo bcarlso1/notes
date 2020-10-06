@@ -1,3 +1,6 @@
+
+
+
 Tools
 
 
@@ -9,6 +12,11 @@ VSCode extensions (see under Extensions sidebar)
 Servers
     Run a simple server with python
         https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server#Running_a_simple_local_HTTP_server
+        navigate to file in terminal and enter => python -m SimpleHTTPServer
+
+    To test AJAX requests locally, on your own computer, you'll need to setup a development server, and preview your pages from your computer using a URL like: http://localhost/
+            Treehouse has a couple of videos helping you set this kind of development environment:
+            https://teamtreehouse.com/library/mac-local-php-dev-environment
 
 
 To look into
@@ -24,15 +32,40 @@ React
         https://reactjs.org/docs/create-a-new-react-app.html
         // pre-configures Babel and Webpack
 
+     Electron, React 360 can be used to build native apps 
+
 js
     Node
+
+    Front End JS libraries
+        React, Vue, & Angular
+            React makes UI components, extended to React native
+    Server-side- NextJS, NUXT
+
+      Libraries for Testing (JS)
+            Mocha
+            Jasmine 
+            Jest- many use w/ React 
+            Enzyme- testing for React 
 
 
 Basic
     NPM
+    Git
 
 
 
 Chrome Extensions
 
     React DevTools- red icon, devtools has React tab to inspect
+
+    Chrome DevTools
+
+Resources
+
+    Css-tracks
+    Mozilla Developer Network
+    caniuse.com- browser support
+    regexpal.com
+    jsonlint.com - validate JSON 
+    jsonplaceholder- fake data

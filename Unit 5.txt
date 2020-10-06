@@ -1,0 +1,931 @@
+HTTP Basics
+        Hyper Text Transfer Protocol- rules for 2 devices communicating over internet
+        Like rules of a conversation
+        ex. Client- weather app, server- Node, Apache
+        domain name - is at an address, which the servers address (house), server has Internet Protocol address
+        http is the language, port # ex. 80 is specific type of comm (http)
+        http request is like going to a website in browser
+            telnet httpbin.org 80
+            GET / HTTP/1.1  // route, 1.1 version
+            Host: httpbin.org // URI 
+        404 if not found
+
+        HTTP Request format
+            Request line- Get or Post [uri] HTTP/[version]
+                // get to view, post to change
+            Header- [Header Name: [Header Value]
+                Host: httpbin.org
+                User-Agent: telnet
+            // blank line after header
+            // request body- for post, info to change
+
+        HTTP Response format
+            status line- HTTP/[version] [status code][status message]
+                    ex. 404 Not found, 202 Ok, 500 server error, 301 page moved
+            headers- [name]: [value] 
+                server: nginx
+                date: ... 
+                content-type: application/xml
+            blank line
+            response body- xml that comes back or html
+
+        HTTP has no memory of requests- stateless, applications can have the memory
+
+        Sending a GET request
+        GET /get?name=Ben&language=English HTTP/1.1 // query string passes additional data
+        Host: httpbin.org
+
+        Sending a POST request
+            POST /post HTTP/1.1
+            Host: httpbin.org
+            Content-Length:32
+
+            firstname=Chris&language=English
+
+        Browser is a GUI for HTTP
+            enriches HTTP experience
+
+            can see w/ Chrome DevTools
+                Network tab- filter for "Doc"/top for initial document
+                   general
+                        shows html item- http request- url, method, Response, IP address
+                    response headers- HTTP version, 200 Ok, etc.
+                    request headers
+                        show GET etc.
+
+        URL- Uniform Resource Locator- also information to obtain resourc- http://httpbin.org/xml (city state and address)
+        URI- Uniform Resource Identifier- /xml (just address)
+        HyperText Markup Language- HTML
+
+        can see get request when click a link in DevTools Network
+
+        get request with form-
+            method- get, action- URL to send to 
+            ex. search bar is a form
+            can watch it in DevTools
+            transfers search to query string
+
+        send post request with form
+            name element on input is sent with value
+            in Network on DevTools
+                response made into a big query string
+                ex. &custemail=abc@123.com& etc.
+        
+        post request has content type and length required
+            query string is below header instead of in request line above header
+
+        cookies- can provide memory
+        SSL- can encrypt http - for https website
+
+Intro to the Terminal
+
+    control computer with just text, GUI's limited functions
+    run on command line interface (CLI)
+    Terminal app on Mac and UNIX commands system
+    Shell run called bash
+    Shell prompt- blinking box- single line to enter text- command line
+        displays name of current directory + $
+    ls // lists names of files 
+    ^C // Ctrl + C to  quit
+    whoami // shows user
+    clear or Ctrl + L // clears outputs
+    cd library // change to library file
+    cat statue.txt  bird.txt // prints contents of both files
+    echo abc // prints abc
+    cat 'file name with spaces.txt' // cat gets rid of spaces unless in quotes
+
+    Options
+        ls -a // shows hidden files (ex. .hidden.txt)
+        ls -t // sorts from newest to oldest
+        // can combine Options
+        ls --all // same as -a 
+
+       history - type history or up arrow 
+
+       tab completion- press tab key after first few letters- autocompletes
+
+    Directories/files
+
+        pwd // print working directory aka file path ex. home/treehouse/unit5
+        cd lesson1 // name of directory to change into  (child directory)
+            // ls will show contents of mall now
+        cd .. // moves back to parent directory 
+        cat mall/menu.txt // can print contents if do file path remaining from current location
+        cat menu.txt // if in mall file
+
+        absolute path- always the same
+            root directory, named "/", no name
+            cd /  // straight to root directory
+            cd /mall // can get to mall even if in /store 
+            cat /mall/menu.txt // can print contents of absolute path file even if not currently near file
+
+
+        Shortcuts
+            cd . // current file
+                ./hello.sh  // can be used to run file in current directory
+            ls .. // show contents of parent
+            cd ../dentist // (up to parent then down to other child)
+            cd ~ // goes to user account directory within home
+                // home directory intended on place for users to work within, not root
+            cd ~/mall // goes to home/user/mall
+
+        wildcard
+            echo *.txt // prints all .txt files
+            echo re*.txt // prints all txt files starting w re-
+            ls */ // contents of all Directories
+
+        commands
+            pager program
+                more terminal.txt // limits display- hit space to next pg, quits when at end 
+                less terminal.txt //shows top of file, space or arrows, q to quit
+
+            cp bird.txt pigeon.txt // take bird contents and paste into new pigeon file
+            cp bird.txt mall/   // makes bird.txt within mall file
+            cp bird.txt .. // pastes to parent 
+            cp -r offices more_offices // copies office directory and saves w new name
+                // r for recursive, copy offices file and its sub files
+            mv bird.txt sparrow.txt // renames
+            mv bird.txt offices // moves to offices folder 
+            mv *.txt .. // moves all contents up to parent 
+            rm bird.txt  // remove, no undo 
+            rm -r offices // removes file & contents
+            mkdir parks // new parks file
+            mkdir parks/playground/toys // makes 2 files within parks 
+
+            naming conventions 
+                lowercase, regular letters/#s and dash/underscore
+                no spaces or dots (unless hidden) 
+
+            look up documentation
+                man ls // manual, gives info on ex. ls command, arguments it accepts
+                q // quit 
+
+            find // searches current file and sub file
+            find -name "*.txt" // needs quotes finds matches
+            grep 'Mac' terminal.txt // finds lines that have match 
+            vi myfile.txt // text edit 
+                // press i, then type, then esc, 
+                // type : then w to write to file, : then q to quit 
+            nano myfile.txt // edit text by typing 
+                // shows commands - all Ctrl + (command letter)
+
+Intro to Git
+
+    version control system- most popular one 
+        tracks all changes, can go to prior versions
+        folder is called a repository 
+        can clone project with full version history
+        can pull changes from others & synchronize- distributed system
+        snapshot is commit- version of project saved at point in time
+
+    use terminal
+    git needs to be installed
+        type- git for start
+    
+    git --help // prints help on using program 
+
+    git clone & git init // new repos 
+    git add, git status & git commit // committing new versions
+    git log // list of old commits
+    git mv & git rm // move and remove files 
+    git push & git pull // synchronize commits
+
+    
+    Initialize a Repo 
+
+        navigate to folder needed - containing project docs 
+         git init
+         ls -a // shows .git directory - don't edit directly 
+            // modify files, stage files, commit files - cycle
+        git status // whats current status- current files untracked 
+        git add metals.html // stages files
+        git status // metals doc to be committed
+        git commit -m "Add a site page" // commits, message attached to commit - says what commit is doing 
+        git config --global user.email "bcarlso1@gmail.com"
+        git config --global user.name "Ben Carlson"
+            // store to make commit
+            // confirms commit 
+        git log -p // shows lines added in each commit 
+        // if edit file 
+            git status // shows files not staged for commit 
+            // also make sure to add all untracked files 
+            git add medals.html // stages modified file 
+            git add bronze.html // stages new/untracked file
+            git status // show ready for commit 
+            git commit -m "Add bronze medals" // commit 
+
+
+            git diff // see changes btwn staging area and modified file 
+                // removed line -, + added, +/- changed
+                // then can confirm what to add as commit msg 
+                git diff --staged // specifies staged changes compare to committed 
+                     // if staged and then edited- it will show file status as staged AND not yet staged - run git add again 
+
+     Removing files
+
+        delete file from repo 
+            rm tin.html // delete the file, but not from repo 
+            git rm tin.html // deletes, change to be committed
+            git commit -m "remove tin" // commits
+
+    Moving files
+
+        git mv silver.txt silver.html // move/change from silver.txt to silver.html 
+        git commit -m "rename silver" // commits 
+
+    Unstaging 
+
+        git status // shows changes to be committed
+        git reset HEAD medals.html // now medals is back to "changes not staged" 
+            // git status shows this command 
+
+    Git Cycle- Committed- Modified - Staged 
+
+    Discard File Modifications 
+
+
+        git checkout -- medals.html // discards modified changes
+            // sends it back to committed state 
+
+        Undo File Deletions
+
+            rm silver.html // deleted
+            git status // shows "deleted: silver.html" and instructions to discard changes 
+            git checkout -- silver.html // command to undo, file is back
+
+        Commit SHAs 
+            Simple Hashing Algorithm- all changes im commit fed into algorithm
+            git log // shows commits and SHAs associated
+            git revert c02bf // type in partial SHA 
+                // creates a new commit reverting the old commit
+                // opens editor- shows instructions at bottom 
+                        Ctrl + O to Save/Write file  
+                        Enter to accept file name
+                        Ctrl + X to exit editor 
+                // shows as new commit in git log 
+
+            git revert HEAD // removes most recent commit 
+
+    Cloning a Repo 
+
+        local repo on your computer, remote repo on others computers 
+
+        to get latest version- pull remote changes 
+         
+        usually have a central repo- pull latest version from central
+            then push changes back to central 
+            like Github 
+
+        To clone- navigate to parent directory 
+            git clone medals myclone // name of directory and name of new directory
+            // new file called myclone w/ same files and git log 
+
+        Pull changes 
+
+          Need to create myclone as a remote repo 
+ 
+          // from myclone file     
+            git remote // shows only "origin" - represents original repo
+            git pull origin // OR git pull 
+            git log // shows latest commits 
+
+        
+            // set up myclone as a remote on medals repo 
+                send changes from myclone to medals 
+
+                // in medals file 
+                    git remote // nothing 
+                    git remote add myclone ../myclone // name and location for remote 
+                    git pull myclone master // pulls changes from myclone remote on master branch (default branch
+                    git log // shows myclone changes within medals file 
+
+    Push Commits in Github 
+
+        on Github- create new repository and name it 
+            add description and create repo 
+        
+        // in medals file
+        git remote add origin URL // copy URL to add from github for existing repo 
+        git push -u origin master // -u means send push commands to this repo as default, say repo name and branch
+            // enter user log in info when prompted 
+            // check github and will see files 
+            // next commit can just type - git push 
+
+
+        Github shows all files
+        main page shows commits and changes made in commit by clicking Commit SHA 
+        using URL of main page you can clone repo 
+
+        Clone 
+            git clone URL // copies repo 
+
+AJAX Basics 
+
+     Asynchronous Javascript and XML - new info without loading new page 
+        usually much less info then loading a full page
+        request to server and response 
+
+        AKA XML HTTP Object (XHR) 
+
+        Asynchronous- processes while everything else running, if send multiple may come back in diff order 
+        JS- create request, send it, & process response
+        XML- data format 
+
+        1. create XML HTTP request Object
+        2. create callback function- process returned data- update screen 
+        3. open a request- get/post & URL to send request 
+        4.  send request to server 
+
+     AJAX need to run on a web server 
+
+     var request = new XMLHTTPRequest(); // creat the object
+        request.onreadystatechange = function () { // callback- runs each time there is a change in state of request 
+            if (request.readyState === 4 ) { 
+                document.getElementById("ajax").innerHTML = xhr.responseText; // displays response from server
+
+            }
+        };      
+        xhr.open('GET', "sidebar.html"); // open the request
+        function sendAJAX() {  // a button in the HTML has onClick of sendAJAX()
+             xhr.send(); // would pass additional data if completing a form etc.
+        }
+       
+        Can view in Chrome- Tools- Javascript Console- Log HTTP requests
+
+    GET and POST
+        get- receive info from server
+            can send query string in URL to send additional info for dynamic info
+                website.com/employee.php&lastName=Jones&firstName=Rita
+                convert special characters in query string
+                    & is %26
+                    space is +
+                    + is %2B
+            can't send sensitive info & limited characters 
+        post- send info to save- vote, email address to save
+            sends info in body- more secure- ex. form sign up 
+            need special header 
+
+    Web Servers respond to AJAX request with text response
+
+        ex. "form submitted succesfully" or could display a file 
+        need data structure for lots of results
+            XML- estensible markupp language- like HTML 
+                <contacts>
+                    <contact>
+                        <name>Joe // create tags- make up names
+            JSON- best when using JS
+        
+    AJAX Security Limitations
+        has issues requesting info from a different server
+        can't use w different hosts, etc.
+        create a web proxy- your server talks to other servers 
+            or JSONP- JSON with Padding- allows comm w other servers 
+                ex. CDNs- uses other server and you just use link 
+            or CORS- Cross Origin Resource Sharing 
+        AJAX needs a server- can't test in browser 
+
+
+    AJAX Callbacks
+
+        responds to change in ready state
+        event is onreadystatechange (ex.)
+        readyState is 0 to 4, 4 means server has sent everything 
+            // can also deal with other issues
+            if (request.readyState === 4) {
+                if (request.status === 200) {
+                 // print server response
+                } else if (request.status === 400) {
+                 alert(request.statusText) // file not found
+                } else if // 500 etc. etc. 
+ 
+
+    JSON- JS Object Notation
+        array or object notation 
+        list of items with key value pairs 
+        must be double quotes 
+        [
+            {
+                "name": "Ben",
+                "height": 74
+            },
+             {
+                "name": "Sven",
+                "height": 84
+            }
+        ]
+
+    Parsing JSON data 
+        convert string to JSON
+
+        var xhr = new XML HTTPREquest(); // step 1
+        xhr.onreadystatechange = function () { // callback- step 2
+            if (xhr.readState === 4) {
+                console.log(xhr.responseText); // ex. JSON- see in JS console
+                console.log(typeof xhr.responseText) // string, JSON, etc.
+                var employees = JSON.parse(xhr.respponseText) // turns string to JSON object 
+                // more here- see processing JSON
+            }
+        }
+        xhr.open('GET', 'data/employees.json'); // step 3- open request 
+        xhr.send(); // step 4 - send request- callback does nothing until this is done
+
+
+    Processing JSON 
+
+        create HTML/CSS mockup for what employee list (ex.) would look like 
+         ex. li tag with name and add class with in or out 
+
+         var statusHTML = '<ul class="bulleted">'; // start HTML to build on
+         for (var i = 0; i < employees.length; i += 1) { // check each employee and add to HTML variable
+            if (employee[i].inoffice === true) {
+                statusHTML += '<li class="in">';            
+            } else {
+                 statusHTML += '<li class="out">';     
+            }
+            statusHTML += employees[i].name;
+            statusHTML += '</li>'; // build HTML for each employee
+         }
+         statusHTML += '</ul>';
+         document.getElementById('employeeList').innerHTML = statusHTML; // insert into HTML
+
+        
+Asynchronous Javascript
+    usually used with callbacks 
+
+    callback functions
+        function passed into another (parent) function
+
+                function add(a, b, callback) {
+                    callback(a + b);
+                }
+
+                add(2, 4, function(sum) {
+                    console.log(sum); // 6
+                })
+
+        ex. 2
+                // greeting function that says Hello (name) 
+                // greeting passed in as callback in getname function
+                // asks for name then alerts Hello (name)
+
+                function getName(callback) {  // passes the callback function as a parameter
+                    const name = prompt('What is your name');
+                    callback(name);
+                }
+
+                function greeting(name) {
+                    alert('Hello, ' + name);
+                }
+
+                getUserName(greeting);
+
+
+        DOM events callbacs- ex. addEventListener
+        map(), filter(), etc. accept a callback like toUpperCase
+
+        Continuation passing style
+            can create confusing chain of callbacks 
+
+    Async & Callbacks 
+
+        btn.addEventListener('click', () => getJSON(astrosURL));
+            // button waits for click to show astronauts
+            // runs getJSON function to send request to api at URL 
+            
+    AJAX Callbacks
+
+        // AJAX Function
+        function getJSON(url) {
+            const xhr = new XMLHTTPRequest();
+            xhr.oen = () => {
+                if (xhr.status === 200) {
+                    let data = JSON.parse(xhr.responseText)
+                    console.log(data);
+                }
+            };
+            xhr.send();
+        }
+
+        // button triggering callback
+        btn.addEventListener('click', () => getJSON(astrosUrl));
+
+        // AJAX Function with callback
+        function getJSON(url, callback) {
+            const xhr = new XMLHTTPRequest();
+            xhr.oen = () => {
+                if (xhr.status === 200) {
+                    let data = JSON.parse(xhr.responseText)
+                    return callback(data);
+                }
+            };
+            xhr.send();
+        }
+
+        btn.addEventListener('click', () => { 
+            getJSON(astrosUrl, (json) => {  // json just represents the data 
+                console.log(json); // shows array of data from astrosURL
+                json.people.map( persom => {   // data on each person
+                    getJSON(wikiUrl + person.name, generateHTML)  // get data from wikipedia for that name
+                        // add generateHTML as a callback, no parens bc not executing right away - will run when data is available
+                })
+            });
+        });
+
+        function generateHTML(data) {
+            const section = document.createElement('section');
+            peopleList.appendChild(section);
+            section.innerHTML = `
+                <img src=${data.thumbnail.source}>
+                <h2>${data.title}</h2>
+                <p>${data.description}</p>
+                <p>${data.extract}</p>
+            `;
+        }
+
+        Step Through code
+            Chrome DevTools -> Source 
+                Event Listener Breakpoints -> mouse -> click
+            
+                Call Stack- shows anonymous fxn on event listener, shows getJSON request
+                Click "step into" arrow to see each step 
+
+        Nested Callbacks- can be very hard to understand 
+            ex. put map function in a separate function
+            promises can be more straightforward 
+
+    JS promises
+
+        eventual completion of an asynch operation- data from server 
+        like a pager that buzzes when food is ready or issue, vs callback- no pager 
+            guaranteed future value with a promise 
+            always either pending (waiting), fulfilled (success) or rejected (failed)
+
+        Create promise
+            3 steps - Promise() constructor, define action for fulfilled/rejected, consume fulfilled value or provide rejection reason 
+
+
+        const order = true;
+        
+        const breakfastPromise = new Promise( (resolve, reject) => {
+            setTimeout(() => {
+                if (order) {
+                    resolve ('order ready')
+                } else {
+                    reject( Error("Your order cannot be made'));
+                }
+            }, 3000);
+        });
+        breakfastPromise
+                .then( val => console.log(val)) 
+                .catch( err => console.log(err)) // err just means reject value
+        // val just means fulfillment value - whatever in resolve is availlable here
+            // after 3 sec says 'order ready'
+        // need catch to know if promise fails 
+
+        
+    Name Resolve/Reject Functions option 
+
+
+        function onResolve() {
+            console.log('Your order is ready. Come and get it!');
+            }
+
+        function onReject() {
+            console.log( Error('Oh noes! There was a problem with your order.') );
+            }
+
+
+        const breakfastPromise = new Promise( (resolve, reject) => {
+            setTimeout(() => {
+                if (order) {
+                resolve();
+                } else {
+                reject();
+                }
+            }, 3000);
+            });
+
+        const order = true;
+        breakfastPromise
+            .then(onResolve)
+            .catch(onReject)
+
+    Chaining promises
+
+        mathPromise
+            .then(addFive) // function that adds 5 if resolved
+            .then(double) // function that doubles if true
+            .then(finalValue) // function that prints value
+            .catch( err => console.log(err));
+            // can be cleaner than callbacks for sequence of operations
+
+
+    From Callback to Promises
+
+            // Callback version
+            function getJSON(url, callback) {
+            const xhr = new XMLHTTPRequest();
+            xhr.oen = () => {
+                if (xhr.status === 200) {
+                    let data = JSON.parse(xhr.responseText)
+                    return callback(data);
+                }
+            };
+            xhr.send();
+        }
+
+        function getProfiles(json) {
+            json.peole.map( person => {
+                getJSON(wkiUrl + person.name, generateHTML);
+            });
+        }
+        
+        btn.addEvenetListener('click', (event) => {
+            getJSON(astrosUrl, getProfiles);
+            event.target.remove();
+        })
+
+
+        function generateHTML(data) {
+            const section = document.createElement('section');
+            peopleList.appendChild(section);
+            section.innerHTML = `
+                <img src=${data.thumbnail.source}>
+                <h2>${data.title}</h2>
+                <p>${data.description}</p>
+                <p>${data.extract}</p>
+            `;
+        }
+
+    // Promise version 
+        function getJSON(url) {
+            return new Promise( (resolve, reject) => {
+                const xhr = new XMLHTTPRequest();
+                xhr.open = () => {
+                    if (xhr.status === 200) {
+                    let data = JSON.parse(xhr.responseText)
+                    resolve(data)
+                } else {
+                    reject( Error(xhr.statusText) );
+                }
+            };
+            xhr.onerror = () => reject( Error('An error occurred')); 
+                // covers network connection issues
+            xhr.send();
+            });
+        }
+
+               function getProfiles(json) {
+                    const profiles = json.peole.map( person => {
+                    return getJSON(wkiUrl + person.name);
+                    });
+                    return Promise.all(promises); // returns array with promises when all fulfilled
+                }
+                    
+            btn.addEvenetListener('click', (event) => {
+                event.target.textContent = "Loading..." // changes button to remove
+            getJSON(astrosUrl) // get data from API
+                .then(getprofiles) // get data from other API
+                 .then(generateHTML);  // add wiki data
+                .catch( err => {
+                    peopleList.innerHTML = '<h3>Something went wrong!</h3>';       
+                    console.log(err)
+                })
+                .finally( () => event.target.remove() ); // removes button when done 
+            })
+
+        function generateHTML(data) {
+            data.map( person => {  // person represents each person object 
+                 const section = document.createElement('section');
+                peopleList.appendChild(section);
+                section.innerHTML = `
+                    <img src=${person.thumbnail.source}>
+                    <h2>${person.title}</h2>
+                    <p>${person.description}</p>
+                    <p>${person.extract}</p>
+                `;
+            })
+        }
+
+    Fetch- new way to work with promises 
+
+        fetch(URL)
+            .then( response => response.json() )
+        
+        function getProfiles(json) {
+            const profiles = json.people.map( person => {
+                const craft = person.craft; // also get spacecraft data
+                return fetch(wikiUrl + person.name)
+                    .then(response => response.json() )
+                    .then( profile => {
+                        return { ...profile, craft } // ...profile copies all props from profile obj, add craft 
+                    })
+            })
+            .catch(err +. console.log('Error', err))
+        }
+
+    Async/Await 
+
+        async - async function
+            await, waits for a returned promise, waits and parses to json
+            promises without then 
+
+        
+        async function getPeopleinSpace(url) {
+            const peopleResponse = await fetch(url); // retrieve people
+            const peopleJSON = await peopleResponse.json() // parse to JSON
+
+            const profiles = peopleJSON.people.map( async (person) => { // go through each person, mark map as async function since using await
+                    const craft = person.craft;
+                    const profileResponse = await fetch(wikiUrl + person.name); // get wikipedia URL for each person 
+                    const profileJSON = await profileResponse.json(); // convert to JSON 
+                    return { ...profileJSON, craft }; // get everything from profileJSON, add craft values
+             })
+
+             return Promise.all(profiles); // return data when all map calls are done before returning data
+        }
+
+
+        // in button event listener
+        btn.addEventListener('click', async (event) => {
+            const astros = await getPeopleinSpace(astrosUrl); // wait for promise return
+            generateHTML(astros); // add to HTML
+            event.target.remove(); // remove button
+        })
+
+
+        Async just returns a promise 
+            supplement to promises 
+            can combine with then method 
+            ex. can get rid of async await in button, still workss
+
+                // in button event listener
+            btn.addEventListener('click', (event) => {
+            
+            getPeopleinSpace(astrosUrl); 
+                .then(generateHTML); // add to HTML
+                .finally( () => event.target.remove()); // remove button
+            })
+
+        Error handling with catch
+
+            // make separate function for error handling
+            async function getJSON(url) {
+                try {
+                    const response = await fetch(url);
+                } catch (error) {
+                    throw error;
+                }
+            }
+
+
+            async function getPeopleinSpace(url) {
+                const peopleJSON = await getJSON(url); // runs function through try catch
+                const profiles = peopleJSON.people.map( async (person) => { // go through each person, mark map as async function since using await
+                        const craft = person.craft;
+                        const profileJSON = await getJSON(wikiUrl + person.name) // go through getJSON
+                        return { ...profileJSON, craft }; // get everything from profileJSON, add craft values
+                })
+
+                return Promise.all(profiles); // return data when all map calls are done before returning data
+            }
+
+              // in button event listener
+            btn.addEventListener('click', (event) => {
+            
+            getPeopleinSpace(astrosUrl); 
+                .then(generateHTML); // add to HTML
+                // errors caught above in try catch will bubble up to here->
+                .catch( e => {
+                    peopleList.innerHTML = '<h3>Error</h3>';
+                    console.error(e);
+                })
+                .finally( () => event.target.remove()); // remove button
+            })
+
+
+
+Fetch API 
+    AJAX alternative- can be cleaner code, uses JS promises 
+    
+
+    fetch('url') // fetch takes api URL as argument 
+        .ex. dogs API url 
+        fetch('http..')
+            // returns a promise 
+            // chain then methods 
+            .then(response => response.json())
+                // returns response object, parse to JSON
+           // .then(data => console.log(data.message)) // logs the message field of retrieved info 
+            .then(data => generateImage(data.message));
+
+
+    fetch('http...') // breeds list
+        .then(response => response.json())
+        .then(data => generateOptions(data.message))
+
+            function generateImage(data) {
+                const html = `
+                    <img src='${data}' alt>
+                    <p>Click to view images of ${select.value}s</p> / displays value of what currently showing
+                    `;
+                card.innerHTML = html;
+            }      
+
+            function generateOptions(data) { // fill in select menu
+                const options = data.map(item => `
+                <option value='${item}'>${item}</option>
+                `).join(''); // gets rid of commas 
+                select.innerHTML = options;
+            } 
+
+    Create Reusable Fetch 
+
+        function fetchData(url) {
+            return fetch(url)
+                .then(checkStatus) // see fxn below
+                .then(res => res.json())
+                .catch(error => console.log('Error, error)); // shows error message and object if an issue 
+        }
+
+        // also check for HTTP error 
+        function checkStatus(response) {
+            if(response.ok) {  // ok/200 is true
+                return Promise.resolve(response);
+            } else {
+                return Promise.reject(new Error(response.statusText)); // will trigger catch 
+            }
+        }
+
+        // now for other fetches can call fetchData and remove parsing then's 
+        fetchData('http...')
+            .then(data => generateImage(data.message))
+           
+
+    // get random photo of breeds
+        function fetchBreedImage() {
+            const breed = select.value // get value from select menu
+            const img = card.querySelector('img');
+            const p = card.querySelector('p')
+        }
+
+        fetchData('https.../breed/${breed}/images/random`) // pull random image of selected breed 
+            .then(data => {
+                img.src = data.message;
+                img alt = breed;
+                p.textContent = `Click to view more ${breed}s`;
+
+            })
+
+        select.addEventListener('change', fetchBreedImage); // change in select drop down
+        card.addEventListener('click', fetchBreedImage) // click on text saying show new image
+
+    Promise.all
+        convert 2 promises to Promise.all
+        drawback is neither will show if one fails
+            best if need both to load or none
+
+        Promise.all([
+            fetchData('http..'),
+            fetchData('http..')
+        ])
+        .then(data => {
+            // separate the 2 fetch requests from 1 JSON 
+            const breedList = data[0].message;
+            const randomImage = data[1].message;
+
+            generateOptions(breedList);
+            generateImage(randomImage);
+        })
+
+    Post data with Fetch
+        add comment to request to post 
+
+        function postData(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const comment = document.getElementById('comment').value;
+       
+        const config = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: name, comment: comment}) // convert to string
+
+        }
+               
+        fetch('http...', config)
+            .then(checkStatus)
+            .then(res => res.json())
+            .then(data => console.log(data));
+        }
+
+        // eventlistener with postData function on form submit
+
+
+
+            
+
+
+

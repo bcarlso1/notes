@@ -82,3 +82,717 @@ JS Conditionals
         console.log(3 === 3 && false && 1 === 1)  // false, takes first false
         console.log(3=== 4 || 'cow' || 'chicken') // cow, first truthy value, if all false prints last value
         
+        if (age && age >= 18) // checks if exists and >=18
+
+        can set default value- function countToFive(start)
+            start = start || 1;
+
+        name && console.log('Hi ' + name)
+
+PseudoCode
+
+    describe how the program will run- write as comments, then add code
+    explain each step, like recipe
+
+    prompt user for numner
+        if input is not a number 
+            print 'this is not a number'
+        end if
+    set num1 to user_input
+    prompt user for number
+    set num2 to user_input
+    set sum to num1 + num2
+    print sum
+
+    loop
+        retrieve student_grades
+        set grades to student_grades
+        set grade_total to 0
+        for each grade in grades
+            if grade is not a 1,2,3,or 4
+                print 'invalid grade'
+                print grade
+                print 'can't complete calculation'
+                stop
+            else add grade to grade_total
+            endif
+        endfor
+        set gpa to grade_total / number of grades
+        print gpa
+
+    // reconfigure into function
+    function calculate_gpa
+        pass in student grades
+        // same if statement
+        return gpa
+
+    // call function
+    set reggie_grades to 4, 4, 3, 4
+    set reggie_gpa to call calculate_gpa with reggie_grades
+    print reggie_gpa
+
+    with code added
+
+            // function calculate_gpa
+        // pass in student_grades
+        function calculate_gpa(student_grades) {
+            // set grade_total to 0
+            let grade_total = 0;
+            // for each grade in student_grades
+            let num_of_grades = student_grades.length;
+            for (let i = 0; i<num_of_grades; i++) {
+            let grade = student_grades[i];
+                // if grade is not a 1, 2, 3, or 4
+            if (grade < 1 || grade > 4) {
+                // print "invalid grade" with grade
+                console.log("invalid grade: " + grade);
+                // exit function with "can't complete calculation" message
+                return "Can't complete calculation";
+            } else {
+                // else add grade to grade_total
+                grade_total += student_grades[i];
+            }
+
+            }
+            // set gpa to grade_total / number of grades
+            const gpa = grade_total / num_of_grades;
+            // return gpa
+            return gpa;
+        // end function
+        }
+
+        // set reggie_grades to 4, 4, 3, 4
+        let reggie_grades = [4,4,3,4];
+        // print the results of calling calculate_gpa with reggie_grades
+        console.log(calculate_gpa(reggie_grades));
+
+        // set dave_grades to 1, 2, 3, 2
+        let dave_grades = [1,2,3,2]
+        // print the results of calling calculate_gpa with dave_grades
+        console.log(calculate_gpa(dave_grades));
+
+
+    PseudoCode Conventions
+
+        Input
+        Input could be from a keyboard, database, mouse, and so on. You want to indicate that data is coming into the program from some external source.
+
+        get name from user
+        get user_record from employee_database
+        Variables
+        Simple variable
+        Create a variable named points and give it the value of two:
+
+        set points to 2
+        Collection of values like an array or list
+        set names to 'Dave', 'Reggie', 'Hope', 'Colleen'
+        Conditional Statements
+        Single condition
+        If the points variable is more than 100, print "High Score!"
+
+        if points is greater than 100 
+            print “High Score”
+        endif
+        Indent code inside of conditional statements to make clear the steps the program follows if the condition is true.
+
+        Multiple conditions
+        if points is less than 0 
+            print “You lose!”
+        elseif points is greater than 100
+            print "High Score"
+        else
+            print "You won, but didn't get the high score"
+        endif
+        Loops
+        Looping though a collection of items like an array or list
+
+        for each name in names 
+            print name
+        endfor
+        Looping a set number of times:
+
+        for every number from 1 to 100
+            print number
+        endfor
+        Loop while a condition is true:
+
+        while user_input is not 'Exit'
+        ...do something here
+        endwhile
+        Functions
+        Create a function
+        Create a function that prints out a message to the console.
+
+        function print_message 
+            pass in message
+            print message
+        endfunction
+        Call a function
+        call print_message with "Howdy!"
+        A function that returns a value:
+
+        function calculate_tax
+            pass in amount and tax_rate
+            return amount * tax_rate
+        endfunction
+
+        set tax to call calculate_tax with 100 and .08
+        print 'Your tax is'
+        print tax
+
+Regular Expressions
+
+    describes a pattern in a string (ex. find on page on web)
+
+    regexpal, test regex
+
+    matches character by character
+
+    toyboats?  // last char optional w ?
+
+    [Ttj]oyboats // match one from [] toyboats, joyboats, or toyboats
+
+    Toy[ -]?boats // space, hypen or neither
+
+    [A-Za-z] // match any letter, upper or lower
+
+    [0-7a] // match any number 0 to 9, or a
+
+    wildcards- capitalize = get inverse  (ex. not number \D)
+         \d // match #
+        \w //  match up/low letter, num, or _ 
+        \s // match space or tab, new line
+        . // any char
+
+    Repeated Characters
+
+        * // 0 or more- toy* matches toy and toyboat
+        + // 1 or more- toy+ matches toys and toyboat
+        {3} // 3 repetitions
+        {3, 5} // 3=5 repetition
+        {3, } // 3 or more repetitions
+
+    Excluding Characters
+
+        [^@] //exclude @ symbol
+        [^.] // exclude dot (not any char wildcard)
+
+    Alternate
+
+        toy|sail // match toy or sail
+        (toy|sail|tug) boat // matches each type of boat 
+        (www.\)?google\.(com|net) // google.com or .net but not .org, www optional
+            // \. is escaping wildcard to get dot
+
+    Beginning of string ^
+    End of string $
+
+
+    regex format
+        const regexObj = /^word$/ // literal form
+        or
+        const regexObj = new RegExp("^word$") // constructor form
+
+    Use regex
+
+        regex.test(testString)
+            // test if match, true or false
+            const regex = /^corn/
+            regex.test("corncorb"); // true
+
+        string.replace(regex, replaceementString)
+            // reformat string ie phone format
+            string1 = 'corndog'
+            string1.replace(regex, 'hot') // replace regex section with hot
+            // hotdog
+
+    Flags- put after regex end slash
+
+        i // case insensitive
+        g // find match anywhere- ex. multiple occurences
+        m // multiline
+
+        treat.replace(/^cheese$/g, "cheddar")
+            // replaces all instances of cheese w cheddar
+
+    Validate username- lower only
+
+        function isValidUsername(username) {
+           return  /^[a-z]+$/.test(username);
+        }
+
+    Validate password- one upper, lower, number
+
+        function isValidPassword(password) {
+            return /[a-z]/.test(password) &&
+             /[A-Z].test(password) && 
+             /[A-Z].test(password)
+        }
+
+    Phone number- number with formatting
+
+        function isValidPhone(phone) {
+            return /^\(\d{3}\)\\s\d{3}-\d{4}$/.test(phone);
+        }    
+
+    email- word/symbol @ word/symbol . word, case insensitive
+
+        function isValidEmail(email) {
+            return /[^@]+@[^@.]+\.[a-z]+/i.test(email);
+        }
+
+    Groups
+
+        parens can group Characters- treat as a character to include or not for ex.
+         /(\w)\w+(\d)/
+            // string8
+            // s and 8 in parens
+            // $1 is s, $2 is 8
+
+        let string = 'abc'
+            string.replace(/(/w)(/w)(/w)/, '$3 $2 $1') // c b abc
+        string = '5337'
+        let regex = /(\d*)(\d{2})/
+        let replacement = '$$$1.$2' // $$ print literal $ sign
+        string.replace(regex, replacement)
+            // $53.37
+
+        recognize phone number in multi formats
+
+            ^\D*\d{3}\D*\d{3}\D*\d{4}\D*$
+                // \D is any non numeral character- allow spaces/parens
+
+
+        reformat tel #
+
+            telephoneInput.addEventListener("blur", e => {
+                e.target.value = formatTelehone(e.target.value);
+            }
+
+            function formatTelepphone(text) {
+                const regex = /^\D*(\d{3})\D*(\d{3})\D*(\d{4})\D*$/
+                text.replace(regex, '($1) $2-$3);
+            }
+
+Object Oriented JS
+
+    object- package of info- properties (key-value pairs) and Functions
+    think of as a real object- state is properties, behaviors is fucntions
+        house- property- color, sq ft, etc.
+        abstract- data containers, ex. manage users- username, add user
+
+    DOM - object with properties- styles, etc.
+        methods- getelementbyid, etc.
+        can use without knowing all underlying code
+
+    Property- object-specific variables- store info in key-value pairs
+    Method- object specific function that let obj do something or something done to it
+
+    Obj Literal- way to create an obj
+        const ernie = {
+            animal: 'dog', // key: value pair
+            age: 1,
+            bark: function(){   // call with bark
+                console.log('woof')
+            }
+        }
+
+        // encapsulation- putting props and methods into pkg and attaching to variable
+
+    Dot & Bracket Notation
+
+        const fruits = ['apple', 'pear', 'strawberry'];
+        // array is a JS obj
+        fruitsLength = fruits.length;
+            // 3
+
+        same w obj lit above- ernie.age, ernie.arnimal
+
+            ernie.bark() // call fxn
+
+        fruits[0] // apple
+
+        obj lit- ernie['age'] // 1
+            ernie['bark']();
+        can save a property as a variable to use w/o quotes
+            var prop = 'age'
+            ernie[prop] // 1
+      
+    Change/Add props
+
+        update property like variable
+        use dot/bracket and set =
+            ernie.age = 2
+            can also add property, ernie.color = "black"
+
+    Object Classes- represent multiples- ex. users of an app
+
+        prop/methods available to objects
+        class syntax- updates former prototype syntax
+
+        class Pet {
+            // constructor method at top- outlines class props- factory that creates obj from blueprint
+            constructor(animal, age, breed, sound) {
+                this.animal = animal;    // this in constructor refers to obj being created
+                this.age = age;
+                this.breed = breed;
+                this.sound = sound // added for method below
+            }
+
+            // add a method- don't use fxn keyword
+            speak() {
+                console.log(this.sound);
+            }
+
+            //add an activity-depends on time- need getter method
+            // only returns when access method- ernie.activity
+            get activity() {
+                const today = new Date(); // obj to get todays date/time
+                const hour = today.getHours(); // method on date obj
+                if (hour > 8 && hour <= 20) {
+                    return 'playing';
+                } else {
+                    return 'sleeping';
+                }
+            }
+
+            // need a getter to get the property of setter below
+            get owner() {
+                return this._owner;
+            }
+            
+            // add a setter to set owner property
+            set owner(owner) { // name of property and parameter w/ value of property
+                this._owner = owner;
+                console.log('setter called: ${owner}')
+                // set owner property equal to property passed in, 
+                // but property can't be same as get/set method so use underscore 
+                // this._owner is the backing property for value of "owner"
+            }
+            // set setter- ernie.owner = "Ashley";
+            // console.log(ernie.owner) - works if use getter w. setter as above
+            
+
+        }
+
+        // Create an instance of the class
+            variable equals new and fill in parameters
+
+            const ernie = new Pet('dog', 1, 'pug')
+            console.log(ernie);
+
+        Note on Node
+            can use node to run file outside browser
+                node fileName.js 
+                // returns Pet { animal: 'dog', age: 1, breed: 'pug' }
+
+
+        Getters and Setters- included above
+
+        Object Interaction
+
+            objects property value can be another object
+
+            class Owner {
+                constructor(name, address) {
+                    this.name = name;
+                    this.address = address;
+                }
+
+                set phone(phone) {
+                    // remove non-numeric- change to empty string
+                    const phoneNormalized = phone.replace(/[^0-9]/g, '');
+                    this._phone = phoneNormalized;
+                }
+
+                get phone() {
+                    return this._phone;
+                }
+
+                // to use owner-
+                    ernie owner = new Owner('Ashley', "123 Main St");
+                    ernie.owner.phone = '(555) 555-5555';
+                    console.log(ernie.owner)
+                        (shows name, address, and phone w/ only #s)
+            }
+
+
+Callback Functions in JS
+    functions called by computer at given time/situation
+    function passed into another fxn to execute
+        ex. onClick(showHint)
+        everySecond(tickClock)
+        ex. class follows exit plan if alarm goes off
+        asynchronous- other tasks going on at same time
+
+
+        function sayHello() {      // function to be used in callback
+            console.log('hello')
+        }
+
+        function executeCallback( callback ) { // pass in function name as parameter
+            callback() // actually call fxn
+        }
+
+        executeCallback(sayHello)  // callback fxn saying hello
+
+    Anonymous function w callback function
+
+        function executeCallback( callback ) {
+            callback();
+        }
+
+        executeCallback(function () {
+            console.log('hello');
+        });
+
+    Arrow Function w callback
+
+     function executeCallback( callback ) {
+            callback();
+        }
+
+        executeCallback(() => console.log('hello'));
+
+
+    setTimeOut w/ anon fxn
+
+        const randomTime = Math.random() * 4000; // 0-4 sec
+        setTimeout(() => surpriseSection.textContent = "SURPRISE", randomTime);
+
+    setInterval- build clock (repeat timer)
+
+        tickClock(); // starts clock immediately, tickClock updates current time
+        setInterval(tickClock, 1000); // updates every 1 sec
+
+
+    Callbacks with Arguments
+
+        function makeRed(element) {
+            element.style.backgroundColor = "red";
+        }
+
+        function addStyletoElement(element, callback) {
+            callback(element);
+        }
+
+        addStyletoElement(div1, makeRed); // makes makeRed(div1)
+
+    Callbacks with text- add highlight to textbox when active in section
+
+        element.addEvenetListener(eventType, callback) // type of action and function called
+
+        nameInput.addEventListener('focus', event => { // focus works with click and tab
+          event.target.className = 'highlight'  
+        }
+
+         nameInput.addEventListener('blur', event => { // focus works with click and tab
+          event.target.className = ''  
+        }
+
+
+        // update to save as variable
+        const focusHandler = event => { 
+          event.target.className = 'highlight'  
+        };
+
+
+        nameInput.addEventLister('focus', focusHandler)
+        // now can repeat with other sections by changing just nameInput
+        // target corresponds to element that listener is referencing ex. nameInput
+
+
+JS Array Iteration
+    looking through an array/collection of data
+    use indices, starting at 0 to locate items
+
+
+    for
+
+        const fruits = ['blueberry', 'apple, 'melon'];
+
+        for (let i < 0; i < fruits.length; i++) {
+            // start at 0, stop at last item (length), add one each time
+            console.log(fruits[i]) // log each fruit
+        }
+
+    forEach
+
+        fruits.forEach(fruit =>  console.log(fruit})
+        // shorter than for loop, avoids bugs
+
+        let capitalizedFruits = [];
+        fruits.forEach(fruit => {
+            let capitalizedFruit = fruit.toUpperCase(); // capitalize each
+            capitalizedFruits.push(capitalizedFruit); // add each to variable
+        });
+
+        Ex #2
+        const prices = [6.75, 3.10, 4.00, 8.12]
+        let total = 0;
+
+        prices.forEach(price => {
+            total += price;
+        });
+
+        Ex #3
+        const names = ['Selma', 'Ted', 'Mike', 'Sam', 'Sharon', 'Marvin'];
+        let sNames = [];
+
+        names.forEach(name => {
+            if (name.charAt(0) === 'S') {
+                sNames.push(name);
+            }
+        })
+
+        OR 
+        names.forEach((name, index) => console.log(`${index + 1} ${name}`));
+            // forEach has index and array parameters
+
+
+        filter()
+            creates new array with some items removed
+
+            const sNames = names.filter(name => name.charAt(0) === 'S');
+                // can do one line since would be if/else w/ true/false 
+            });
+
+            // can also use variable
+            const startswithS = name => name.charAt(0) === 'S';
+            const sNames = names.filter(startswithS);
+
+            const numbers = [1,2,3,4]
+            const not3 = numbers.filter(number => number !== 3);
+            // 1,2,4
+
+            const evens = numbers.filter(number => number % 2 == 0);
+            // % 2 checks for remainder
+
+
+        Map
+            returns same number of items, but can transform them ex Celsius to Fahrenheit
+
+            const strings = ['1', '2', '3']
+            const numbers = strings.map(string => parseInt(string, 10);
+            // 10 means base 10
+
+            Ex. with fruits from above
+            const capitalizedFruits = fruits.map(fruit => fruit.toUpperCase());
+
+            Ex. make prices format
+            const prices = [5.1, 2, 3.45]
+            const pricesToDollars = price.map(price => `$${price.toFixed(2)}`); //template literal, 2 digits
+            const displayDollars = prices.map(priceToDollars);
+
+        Reduce
+            combine items in array
+            uses 2 params- accumulator- container for everything, and current item
+            
+            Ex. 1 get total
+            var total = [0, 1, 2, 3].reduce(
+                ( acc, cur ) => acc + cur,
+                0 // initial value for accumulator (acc)
+            );
+
+            Ex 2 get names w G
+            const names = ['Gary', 'Pasan', 'Gabe', 'Treasure', 'Gengis', 'Gladys', 'Tony'];
+            const gNameCount = names.reduce((count, name) => {
+                if (name[0] == 'G') {  / 1st char has G
+                    return count + 1; // add 1 to accum
+                }
+                return count;
+            }, 0 )
+    
+        Chaining Array methods
+        Ex.
+        const arr = [1,2,3]
+        const smallerArr = arr
+            .filter(number => number !== 2)
+            .map(number => number + 1);
+                // 2, 4
+
+        Objects in array
+
+            const users = [
+                { name: "Samir", age : 27 }
+                { name: "Anne", age: 33 }
+                { name: "Bee", age: 20 }
+            ]
+
+            const newUsersArray = users.filer(user => user.name !== "Samir");
+            // removes Samir
+
+            const newUsersArray = users.map(user => `${user.name} is ${user.age} years old`);
+            // change to show array with ages 
+
+            // turn into 1 object with name as property and age as value (ex. Samir: 27, Anne: 33)
+            const usersObject = users.reduce((usersObject, user) => {  // usersObject is the accumulator
+                usersObject[user.name] = user.age  // user with property and set equal to value
+                return usersObject; // return to keep adding to object
+            }, {}) // brackets for new object to populate in (starting value)
+
+
+        Combining filter() and map()
+
+            // create objects with S names & reformat like { name: Samir} etc.
+            const userNames = ['Samir', 'Angela', 'Beatrice', 'Shaniqua', 'Marvin', 'Sean'];
+            
+            const users = userNames
+                .filter(name => name.charAt(0) === 'S')
+                .map(name => ({ name: name })); // parens around obj literal to show its an object
+                    // name property with value of their name
+
+
+        Combining filter() and reduce()
+
+            const products = [
+                { name: 'hard drive', price: 59.99 },
+                { name: 'lighbulbs', price: 2.59 },
+                { name: 'paper towels', price: 6.99 },
+                { name: 'flatscreen monitor', price: 159.99 },
+                { name: 'cable ties', price: 19.99 },
+                { name: 'ballpoint pens', price: 4.49 }
+                ];
+
+            // get highest price
+            const product = products
+                .filter(product => product.prcie < 10) // all less than $10
+                .reduce((highest, product) => {  // most expensive item in highest
+                    if (highest.price > product.price) {
+                        return highest;
+                    }
+                    return product;  // whichever is biggest is returned, eventually gets biggest
+                });
+
+            // get sum of >10 price products
+            const total = products
+                .filter(product => product.price > 10)
+                .reduce((sum, product) => sum + product.price, 0); // start at 0
+                .toFixed(2); // 2 decimals
+
+            Nested Arrays
+            // collect elements and place in 1 array
+            const movies = [
+                ['The Day the Earth Stood Still', 'Superman', 'Ghostbusters'],
+                ['Finding Dory'],
+                ['Jaws', 'On the Waterfront']
+                ]
+
+            const flatMovies = movies.reduce((...arr, ...innerMovies) => {  /// get all elements from accumulator overwrite w all elements from innermovies
+                [..arr, ...innerMovies]
+            }, []); // empty array to fill 
+
+
+            //ex. get favorite books from each user (nested in a favoritebooks array in a user obj)
+            const books = users
+                .map(user => user.favoriteBooks.map(book => book.title))
+                .reduce((arr, titles) => [ ...arr, ...titles ], []); 
+
+
+
+
+
+
+
+
+

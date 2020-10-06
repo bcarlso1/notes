@@ -55,7 +55,7 @@ React Basics
                                  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
                                 <script type="text/babel" src="./app.js"></script> // add type to existing script
 
-    React Components
+React Components
 
         Reusable UI pieces
         Define as function or class, display w/ JSX tag
@@ -353,3 +353,35 @@ React Components
                     })
             }
 
+    StopWatch
+
+        state- isRunning: false
+        // initialize state
+
+        tick = () => {
+
+        }
+
+        // update button name (isRunning) state to opposite on click
+        handleStopwatch = () => {
+            this.setState({
+                isRunning: !this.state.isRunning
+            })
+        }
+
+        // render
+        // button displays stop or start based on state
+        <button onClick={this.handleStopwatch}> 
+            { this.state.isRunning ? 'Stop' : ' Start' } 
+        </button>
+    
+
+    Component Lifecycle
+        mounted to DOM, updated, unmounted
+        built-in methods can run code at key times in cycle
+
+        // see tick above
+        componentDidMount() {
+            // returns intervals with unique ID's
+            this.intervalID = setInterval(() => this.tick(), 100)
+        }
