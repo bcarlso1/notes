@@ -1,3 +1,9 @@
+Projects
+
+dog API
+weather API
+get latest tweets
+create express card app with card sets, connect to database, add users/authenticiation
 
 
 
@@ -14,10 +20,16 @@ Servers
         https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server#Running_a_simple_local_HTTP_server
         navigate to file in terminal and enter => python -m SimpleHTTPServer
 
+    npm http-server
+
     To test AJAX requests locally, on your own computer, you'll need to setup a development server, and preview your pages from your computer using a URL like: http://localhost/
             Treehouse has a couple of videos helping you set this kind of development environment:
             https://teamtreehouse.com/library/mac-local-php-dev-environment
 
+    nodemon- avoid restarting server to show changes 
+
+        npm  install -g nodemon
+        to use make sure package.json has "main" property and points to root file/app.js
 
 To look into
 
@@ -37,6 +49,12 @@ React
 js
     Node
 
+    Express- node framework 
+
+    Pug - templating engine 
+        npm install pug --save
+
+
     Front End JS libraries
         React, Vue, & Angular
             React makes UI components, extended to React native
@@ -48,9 +66,11 @@ js
             Jest- many use w/ React 
             Enzyme- testing for React 
 
+    
+
 
 Basic
-    NPM
+    NPM, npm website also lists common packages
     Git
 
 
@@ -69,3 +89,6 @@ Resources
     regexpal.com
     jsonlint.com - validate JSON 
     jsonplaceholder- fake data
+    http://html2jade.org/
+
+ 
