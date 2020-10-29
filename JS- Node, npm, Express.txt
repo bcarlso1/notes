@@ -1,0 +1,912 @@
+JS Ecosystem
+
+    JS runs on browser - client side
+        browser interactivity 
+        host objects- window, dom
+    
+    JS runs on server- back end - store/manage data 
+        with just front-end- it just presents content as requested- static plus animation
+            with back end- can make additional requests - database on server, render JS in server
+        execute JS outside the browser 
+        APIs, databases, etc. 
+        node provides host objects 
+
+
+    Node JS
+        cross-platform runtime environment for server-side apps w JS 
+        host objects- http, https, etc. 
+        use for collaboration tools, games, etc.
+
+
+
+        npm - packages to help build projects 
+
+        Express- node framework- build scalable apps, servers ,etc.
+            Node limited out of box, so need frameworks 
+
+        command line interfaces- native apps 
+            CLI 
+            create react app
+            airbnb
+            instagram 
+            VSCode 
+
+            Electron, React 360 can be used to build native apps 
+
+    Front End JS libraries
+        React, Vue, & Angular
+            React makes UI components, extended to React native
+    Server-side- NextJS, NUXT
+
+    Testing JS 
+
+        Unit Tests- expected outcome of each function and test them 
+        Libraries for Testing   
+            Mocha
+            Jasmine 
+            Jest- many use w/ React 
+            Enzyme- testing for React 
+
+
+Node Basics
+
+    JS on the server side 
+    Node installed on computer
+        node -v 
+        node app.js // runs file 
+    
+    console.log // print msg
+    console.error // print error msg
+    console.dir // print object key/values 
+
+    node
+    1+2 //3, can do operations outside browser
+    name = "Ben"
+    name // Ben
+
+    Native objects- browser and server use
+        string, array, date, math 
+
+    Host objects- provided by environment   
+        window, document, history, XMLHTTPRequest
+    
+    Node uses Chrome's V8- Node JS Environment/Platform 
+
+    Most apps do one thing at a time until done- blocking language
+        NodeJS, handles requests while others finishing 
+            non-blocking, more efficient 
+
+    Use Node.js documentation site- nodejs.org 
+        API- objects and methods aka Documentation 
+
+    Problem solving
+        write out the Problem
+        describe a solution 
+        implement then optimize
+
+    User Event - ex. button click/event listener
+    System Event- ex. timeout after 3 sec, or onload, http reqeust complete
+
+    Ex. API request
+    function printMessage(username, badgeCount) {
+       const message =  `${username} has ${badgeCount} total badges`
+       console.log(message); 
+    }
+
+    Node HTTPS Get Method (documentation)
+    run in terminal with "node app.js"
+
+    const https = require('https');
+
+    const request = https.get(`URL../${username}.json`, response => {
+          //  console.dir(response); // lots of info
+          // console.log(response.statusCode); // 200
+          
+          let body = "";
+          response.on('data', data => {   // based on Node https documentation
+            body += data.toString()) // toString() else will come through in Buffer format and data variable to get all pieces
+          });
+
+          response.on('end', () => {  // collects body when all info sent- comes through as string unless parse
+            const profile = JSON.parse(body)
+            console.dir(profile)  // shows full structure to know how to display
+            printMessage(username, profile.badges.length)
+          });
+    }); 
+
+    // getProfile function can wrap around w. parameter of username
+
+    users array
+        users.forEach(username => {
+            getProfile(username);
+        })
+
+        // can abbreviate to 
+            users.forEach(getProfile);
+
+      Process Object- global object - use to add variables from command line
+            command line- 
+                node app.js bcarlso1 // get username info 
+        // in JS
+            const users = process.argv.slice(2) 
+                // argv gets access to command line info
+                // slice stops from returning file name info- 1st 2 results
+
+    Add Error Handler for Node
+    Exception Error
+        request.on('error', error => console.error( `Problem with request ${error.message}))
+
+    Omitted Events Error
+        // will not catch errors breaking URL protocol- ex. missing http 
+        // try catch block- try wraps around whole function
+        function getProfile(username) {
+            try { 
+                ...
+            } catch (error) {
+                console.error(error.message);
+            }
+
+    Error if not JSON (invalid user ex.)
+        // try block around user
+        try {
+            const profile = JSON.parse(body);
+            printMessage(username, profile.badges.length)
+        } catch (error) {
+            console.error(error.message);
+        }
+
+    Create Error Function to use for all errors
+
+        function printErr(error) {
+            console.error(error.message)
+        } 
+
+            // update console.error throughout doc to printError(error)
+
+    HTTP Status Codes Not 200
+
+    const request = https.get(url...., response => {
+        if (response.statusCode === 200) {
+            // let body = "" down to catch error etc. here
+        } else {
+            const message = `Error getting profile for ${username} (${response.statusCode}`;
+            const statusCodeError = new Error(message);
+            printError(statusCodeError);
+        }
+    })
+
+    // make status code to english ex. 404 to "Not found"
+        switch to 
+            (${http.STATUS_CODES[response.statusCode]})
+                // http module can decode
+                // need to include http module at top
+                    // const http = require('http');
+
+    Split up Code with Require 
+
+        save section of code in profile.js
+
+        in profile.js export the getProfile function
+            module.exports.getProfile = getProfile;
+
+        at top of app.js
+            const profile = require('./profile.js')
+
+            edit 
+                users.forEach(profile.getProfile) // file & function name
+
+    
+    Command Line Weather App with API
+
+        API key identifies user, to access API 
+            const api = require('./api.json');
+                // more secure- ex API key file
+                    { 
+                        "key": "abc123"
+                    }
+        
+        function printWeather(weather) {
+            const message = `Current temperature in ${weather.location.city} is 
+                ${weather.current.observation.temp_f}F`;
+        }
+
+        /// further down
+        response.on('end', () => {
+            const weather = JSON.parse(body);
+            printweather(weather);
+        })
+
+        /// enter in command line- node app.js 90210
+
+        errors  
+            use error mothds from above
+
+
+npm Basics
+
+    package manager for JS
+    standard way to install software
+    included in node projects are called modules 
+
+    npm website- common packages, can see popularity, issues addressed, & github
+
+    local package
+          
+           ex. brcypt
+           
+           // command line
+            npm install brcypt
+                // may require flag rarely ex. npm install bcrypt --python-python2
+                    // read error msg to know 
+
+                // bcrypt gets added to node modules in project 
+
+
+            // can look at bcrypt readme for sample code
+
+                var unsecuredPW = "password";
+
+                var bcryt = require('brcrypt');
+                bcrypt.genSalt(10, function(err, salt) {
+                    bcrypt.hash(unsecuredPW, salt function(err, hash) {
+                        console.log(hash); // logs secure PW
+                    }
+                })
+
+        global package
+             use -g when install
+
+                npm install http-server -g 
+
+                to run- http-server folderName
+
+
+        managing package dependency
+            managing packages/versions
+                use package.json
+
+                create with "npm init", follow prompts 
+
+                    npm install colors --save // adds to package.json
+
+                        still need in app.js-  "var colors = require('colors')
+
+                create file ".gitignore.txt" and write "node_modules/" to avoid saving to github all the dependencies (lots of space)
+
+                typing "npm install" downloads all dependencies 
+
+
+                "npm install mocha --save-dev"
+                    saved in package.json as devDependency
+                
+                to save in production mode when downloading dependencies    
+                    "NODE_ENV=production npm install"
+                        // won't install development/testing dependencies 
+
+            
+        Updating npm
+
+           v1.2.3 // 1 is major release, 2- minor release- new functionality, 3- patch version- bug fixes
+                    minor release sometimes may break code
+            
+            ^1.1.2 // means will install up to but not including 2.0
+            
+            ~1.1.2 // means will install all patches until minor (not 1.2)
+
+            // "npm install" updates to what package.json specifies
+
+            // "npm outdated" shows outdated, then "npm update"
+
+            to update global- specify the program or updates all
+            ex. "npm update http-server -g"
+
+    Uninstall package
+        npm uninstall colors // uninstall but still in package.json so reinstalls with "npm install"
+        npm uninstall colors --save // also removes from package.json
+
+        npm uninstall http-server -g // global uninstall
+
+        npm help install // gives info on how to install 
+
+Express Basics
+
+    Web framework for NodeJS to build web apps
+
+        frameworks solve common issues/patterns
+                templates, URL routing, process user input 
+
+                Python has Flask, Java has Spark, Ruby has Sinatra
+
+
+     Installing Express 
+
+        // need node and npm installed globally 
+
+        command line
+            // navigate to project file 
+            npm init -y // y accepts default options 
+                // creates package.json 
+
+            npm install express@4.15.2 --save // latest version 
+
+            code app.js // opens VSCode 
+
+            // in app.js
+            const express = require('express');
+
+    Set up Express Server
+
+        Express sets up a server - program running on anoterh computer
+        Can set up the server on your own machine- have server and client
+            server receives requests and sends response
+            to make public, need to set up on external server 
+
+        // in app.js 
+        const app = express(); // creates express app 
+
+        app.listen(3000); // port to use
+
+        //start app
+        node app.js 
+
+        // browser open localhost:3000 
+        
+    Create Route
+
+        URL command ex.
+            /about = load content from about page, get request 
+                URL tells server what to get 
+                post request for form 
+
+                not found URL- 404 error/not found 
+
+        create root Route (home)
+            app.get('/', (request, response) => {
+                response.send('Hello');
+                // prints hello on root route 
+            }) 
+
+    Ctrl + C - stop server 
+    node app.js - restart server 
+    // needed after every updapte, avoid with nodemon
+
+    npm  install -g nodemon
+                to use make sure package.json has "main" property and points to root file/app.js
+                run file by typing "nodemon" 
+
+    Create multiple routes 
+
+        app.get('/', (req, res) => {  // can abbrev to req, res
+            res.send('<h1>Hello</h1>'); // can include html
+        })
+
+        // 2nd route 
+         app.get('/sup', (req, res) => {  
+            res.send('<h1>Sup Y'all</h1>'); 
+        })
+
+        app.listen(3000, () => {
+            console.log('Application running on localhost:3000) // add message to display in terminal to show what's happening 
+        })
+
+        // see Express documentation for methods 
+
+    Template Rendering 
+
+        server holds templates- html page with spots to customize depending on page 
+        template also called views 
+
+        Pug or Jade- template engine 
+
+            used w/ Node & Express- translates to html 
+
+            html (lang="en")  // parens for properties  
+                h1 I love Treehouse 
+                ul.listing // listing class 
+                    li One  // indent to nest
+                    li Two
+
+        npm install pug --save
+        
+        app.set('view engine', 'pug'); // in app.js,  tells express which templating engine to use 
+
+            automatically will look for 'views' folder 
+
+            create 'views' folder in project for templates 
+
+                index.pug 
+
+
+                    doctype html
+                        html(lang="en")
+                        head
+                            title Landing Page
+                        body
+                            h1 Future home of something awesome
+                            p Lettus gobblers pens, radish on kidney beans, llamas pick up truck. Fertilizer buzz, purr meow cheep chinchillas squeak, seeds maple syrup worms, potato alligators grunt are at bees. Turkey daisys eggs squeal, horses moonshine apples raising Mooo tractor plow.
+            
+    To display pug file 
+
+       app.get('/', (req, res) => {  
+            res.render('index'); // render instead of send 
+                // not index.pug bc pug specified already to express in app.set 
+        })
+
+
+    Create dynamic content with pug 
+        // card.pug
+        doctype html
+            html(lang="en")
+                head
+                    title  Cards
+                body
+                    h1 Card Game
+                    h2=prompt    // variable 
+                    if hint // only shows hint text if hint value exists 
+                        p
+                            i hint: #{hint} // interpolate
+                    else 
+                        p (There is no hint)
+
+        app.get('/cards', (req, res) => {
+           res.render('card', { prompt: "What state is biggest?", hint: "think west" }) // "locals" defines variable 
+            // another way ->
+                  //  res.locals.prompt = "What state is biggest?"
+                 //   res.render('card');
+        })
+        
+        Interpolate with pug
+            h1 My name is #{name}
+
+
+    Add array (colors) as a local/variable in pug rendering
+        res.render('card'. colors)
+
+        then in pug file 
+
+            ul
+                each color in colors
+                    li = color // prints each item in a list 
+
+    Break templates into Partials 
+
+        elements may be same across many pages- header, footer, etc.
+        keep/update all in one file
+    
+
+        layout.pug 
+
+            doctype html
+            html(lang="en")
+                head
+                    title  Cards
+                block content // content put here
+                footer
+                    p An app to study 
+
+        samplePage.pug
+
+            extends layout.pug // pulls from template
+
+            block content // shows where to place 
+                section#content 
+                    h2 Welcome, student!
+
+        Divide further
+
+            create "includes" file for header.pug 
+
+             header   
+                h1 Flash Cards 
+
+            // in layout.pug
+
+            ...
+            body
+                include includes/header.pug
+                block content
+                footer
+                    ,,,
+            
+    Form in Pug 
+
+        form(action="/hello", method="post")  // sends to /hello
+            label Please enter a name
+                input(type="text", name="username") 
+            button(type="submit")
+
+        // need a post route - copy /hello get route and change to post below 
+
+            app.get('/hello) ....
+            
+            app.post('/hello', req, res) => {
+                res.render('hello')
+            }
+
+
+        Use Request object 
+
+            form response goes to body property
+                but need Middleware to retrieve it
+                otherwise undefined
+
+        Install middleware 
+            npm install body-parser --save 
+
+            // app.js
+            const body Parser = require('body-parser');
+
+            app.use(bodyParser.urlencoded({ extended: false})) // just look this up- know that it makes bodyparser work 
+
+
+            // add name variable to render, retrieved from form
+            app.post('/hello', req, res) => {
+               // console.dir(req.body) // returns { username: Ben }
+               // res.json(req.body) // just displays JSON of username obj
+                res.render('hello', { name: req.body.username })
+            }
+
+            // make conditional to show name OR form
+            if name
+                Welcome #{name}
+            else 
+                form
+                    ...
+
+        state
+            Stateless- no memory- refreshes a form and blank
+            http has no memory- server no memory 
+            sometimes need state- ex. shopping cart 
+                can use cookie - send cookie along with request 
+
+
+            cookie method in express 
+
+            need cookieParser middleware
+                npm install cookie-parser --save 
+
+
+            // app.js 
+            const cookieParser = require('cookie-parser');
+            ...
+            app.use(cookieParser());
+            ...
+
+           app.post('/hello', req, res) => {
+               res.cookie('username', req.body.username) // adds after submit 
+               res.render('hello', { name: req.cookies.username }) // read from cookie instead of from req object 
+               ...
+            
+                // name entered stays even if open in a new tab 
+                // can delete cookies in Devtools
+                        -see DevTools- Application- Cookies
+                // don't save sensitive info- PW in cookie 
+
+        Redirect after a Form Submission 
+            ex. log in screen then goes to new page 
+            res.render to res.redirect
+                ex. redirect from hello to homepage
+                    can have form on hello page, and Welcome #{name} on homepage
+
+            app.get('/', (req, res) => {
+                const name = req.cookies.username; // save cookie as a variable
+                if (name) { // go to homepage if name filled in 
+                    res.render('index', { name: name })  // use variable as object to render in page 
+                } else {  // if going to "/" without name filled in
+                    res.redirect('/hello') // need to go to hello first 
+                }
+            });
+            
+            app.get('/hello', req, res) => {
+               const name = req.cookies.username; 
+               if (name) {
+                    res.redirect('/') 
+               } else {
+                   res.render('hello')
+               }
+
+
+               app.post('/hello', (req, res) => {
+                    res.cookie('username', req.body.username);
+                    res.redirect('/');
+               })
+              
+           Add Goodbye button to clear form/cookie
+
+            // in index.pug
+
+            form(action="/goodbye", method="post")
+                button(type="submit")
+
+            // in app.js
+
+            app.post('/goodbye', (req, res) => {
+                res.clearCookie('username');
+                res.redirect('/hello')
+            })
+
+        Express Middleware 
+
+            middleware acts on responses to send back to user
+
+            app.use('/users', (req, res, next) // middleware can modify each
+                 // include route if specific to route 
+                 // call next to move forward
+                 // or app.get for only get requests 
+            
+
+           // ex.
+            app.use((req, res, next) => {
+                console.log('one'); // prints every time page loads
+                req.message = "pass this message";
+                next(); // goes to next step
+            });
+            
+            // console.log(req.message) in app.use after this one would log the message
+            // fxn runs every time bc no route specified
+            // middleware fxns run in order as listed 
+            // can put multiple fxns in one app.use with comma then (req...
+
+        Next()
+            app stuck if no next
+            or can send response- use res.send, res.render 
+
+
+        Handling Errors 
+        
+            // create example error for demo purposes/test error handler
+            app.use((req, res, next) => {
+                console.log('one'); 
+                const err = new Error('oh no'); // create error object 
+                err.status = 500;
+                next(err);  // throws message plus lots of info 
+            });
+            
+        Error Middleware- extra parameter- (err, req, res, next)
+
+        // create error handler
+        // read from info set above in handling errors 
+
+        app.user((err, req, res, next) => {
+            // res.locals.error = err; // put error prop here or like err on line below
+            res.status(err.status); // set as general error
+            res.render('error', err);
+        });
+
+                // error.pug 
+
+                extends layout 
+                block content
+                    h1= error.message
+                    h2= error.status
+                    pre= error.stack // preformatted text
+
+
+            404 Errors 
+
+                // list after all routes, will use create error handler
+                app.use((req, res, next) => {
+                    const err = new Error('Not Found');
+                    err.status = 404;
+                    next(err);
+                });
+
+        Modular Routes 
+
+            Create routes folder and index.js inside    
+
+            // index.js
+             const express = require('express');
+             const router = express.Router(); // like a mini app 
+
+             // add all routes here 
+             // change all app.get etc. to router.get...
+
+
+            module.exports = router // export so available 
+
+            // do same in cards.js for card routes
+
+
+            // app.js
+            const mainRoutes = require('/routes') // import just above other middleware (ex. app.use..)
+                    // bc called index.js can just name folder 
+            const cardRoutes = require('./routes/cards')
+
+            app.use(mainRoutes) // use routes
+            app.use('/cards', cardRoutes); 
+                // app.get('/') in cards.js would refer to /cards
+
+
+        Set up for data
+
+            data folder- json file inside w sample data 
+
+        {
+            "data": {
+                "title": "JavaScript Flashcards",
+                "cards": [
+                    {
+                        "question": "What language are Express apps written in?",
+                        "hint": "It starts with a \"J\"",
+                        "answer": "JavaScript"
+                    },
+
+            // routes/cards.js 
+                const { data } = require('..data/flashcardData.json'); // store in an object, equiv to data.data subset of json
+                const { cards } = data // cards obj = data.cards // subset of the json
+
+                router.get('/:id', (req, res) => { // :id signals it will go to that # /1, /2. etc.
+                    res.remder('card', {
+                        prompt: cards[req.params.id].question // go to question in json depending on URL /1 is 1st question
+                        hint: cards[req.params.id].hint
+                    })
+                })
+
+            // use query string to show question or answer on card 
+            ex. /cards/4?side=question 
+
+
+            router.get('/:id', (req, res) => { // :id signals it will go to that # /1, /2. etc.
+                    res.remder('card', {
+                        const { side } = req.query // gets query string info from URL, records what side says in URL, req.query.side
+                        const { id } = req.params // req.params.id 
+                       
+                        const text = cards[id][side]; // store which card and then question or answer cards[0][question]
+                        const { hint } = cards[id]; // store which card
+                        
+                        const templateData = { id, text } //  text and id into object for pug template to use (id in link)
+                        
+                        // determine to show hint or not and what link text to display
+                        if (side === 'question') {
+                            templateData.hint = hint;
+                            templateData.sideToShow = "answer" // for link in pug
+                            templateData.sidetoShowData = "Answer" // capitalize for text displayed in link
+                        } else if ( side ==== "answer") {
+                            templateData.sideToShow = "question"
+                            templateData.sidetoShowData = "Question" 
+                        }
+                        
+                        res.render('card', templateData);
+                    })
+                })
+
+                // card.pug 
+                extends layout.pug
+                block content
+
+                    h2= text // will display question OR answer
+                    if hint 
+                        p 
+                            i Hint: #{hint} 
+                    a(href=`${id}?side=${sideToShow}`= sideToShowDisplay
+
+            Redirect to Random Cards 
+
+                // in cards.js
+                router.get('/', (req, res) => {  
+                    const numberOfCards = cards.length
+                    const cardId = Math.floor( Math.random() * numberOfCards)
+                    res.redirect(`/cards/${cardId}?side=question`)
+                })
+
+            Navigate to cards/4 
+                no resukts bc no querystring
+
+                if (!side) {
+                   return res.redirect(`/cards/${id}?side=question`);
+                    // say return, bc otherwise will also go down to res.render at bottom and try to do both (error)
+                }
+
+            Add link to new card
+                a(href='/cards') New Card
+
+            connect cookie with name to /cards 
+                // in cards.js
+                const name = req.cookies.username;
+
+                const templateData = { id, text, name  } /
+
+    Static Assets 
+        static CSS & JS files- not used by server- just for client side
+            don't need to send to server 
+
+
+        public folder- keep static files - ex. stylesheets folder 
+
+        // in app.js
+        app.use('/statoc', express.static('public'));
+            // stylesheets will load at this URL 
+        
+        // in layout.pug 
+
+        head
+            title Flash Cards
+            link(rel="stylesheet", href="/static/stylesheets/style.css")
+
+    Put an HTML file into final app
+
+        use html to pug converter 
+        compare different files and add common parts to layout.pug
+        header.pug, main.pug- main text, error.pug - error page 
+        app.pug- design of card
+
+        block content can also be be block main, block card etc. 
+
+        class names can be variables, ${side}
+
+Understanding Express Middleware 
+
+    completes step between request and response 
+    3 parameters- req, res, next 
+    app.use runs middleware, can specify to a route, or to a get request with app.get
+
+    app.use((req, res, next) => {  // runs on all routes
+        // can create variable here to use in other middleware ex. req.message = "abc",
+        console.log("one"); 
+        next(); // move to next piece of middleware 
+    })
+
+    app.use('/two', (req, res, next) => { // shows on two route
+        console.log("two");
+        next(); // move to next piece of middleware 
+    })
+
+
+    next()
+
+        page waits for next to move forward
+        can also end with res.send, res.render, res.JSON 
+
+        Errors 
+            // create error in middleware
+            const err = new Error('oh no')
+            next(err) // logs error 
+
+    bodyParser makes info readable
+        req.body.number // gets number value submitted to post route 
+        use router for routes and app.js for middleware 
+        can get variable in middleware from form, pass to router
+
+        add error handling in app.use 
+        ex. 
+            if (isNAN(variableHere)) {
+                const err = new Error('not a number');
+               return next(err); // return stops function here before the next next();
+            }
+        can use next() with if statements to move past errors or sections not filled in 
+
+        can pull out app.use contents and save as variable to condense
+        can even put in a separate file, export/require to access 
+
+        can pass in value to enhance function (ex. funtion can double to multiply by X)
+
+Debug Node with VS Code
+
+    console.log not ideal 
+        // create noise 
+    
+
+    Open Terminal in VS Code
+    Open Debugger from left menu 
+
+    open project folder, select Node.js debug environment, creates launch.json 
+
+    click Launch program and start button
+        can view browser now at same time
+
+        pick a JS line where issue might be 
+            click far left to create a breakpoint- red circle 
+            look at panels on left- 
+                see call stack- noisy 
+                see breakpoints - can add another breakpoint
+                see variables & value 
+            can add variable to "watch" panel if many 
+            click "step over" button to move line by line 
+            click "step into" to go into function - ex. if function called, goes into function
+                "step out" to go back
+            "stop" when done 
+
+            
+            
+

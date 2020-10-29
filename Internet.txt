@@ -1,0 +1,132 @@
+1. How does internet work?
+2. WHat is HTTP?
+3. Browsers and how they work
+4. DNS and how it works
+5. What is Domain Name?
+6. What is hosting?
+
+1. How does the internet work?
+
+    -created as a distributed network by DoD
+    -all independently operated networks, all designed so any device can connect with any other
+    -intenet ships bits- binary inforatmion (bits- on- 1/off- 0)
+        -8 bits = 1 byte, 1000 byte = kilobyte, 1000 kilobyte = megabyte
+        -send with electricity- on/off counted ex. each sec on is 1
+            -send faster = increase bandwidth - max transmission capacity of device
+                - measured by bit rate- number of bits sent in time period
+                - can also measure latency- amount of time for bit to travel between locations
+        -how to send the information
+            -  electricity - not super fast & signal loss over distance, copper common
+                -send faster as light in fiber optic cable & without signal loss
+                - send multiple bits at same time as well, bouncing in cable at different angles
+                    - fiber optic cables across ocean floors
+            - wireless- use radio signal to send bits 
+                -send out as 1s 0s in radio waves, receivers reverse process
+                -signal limited distance- ex computer connect to wifi router, than transfers to hard wire to travel 
+
+    
+
+            
+2. What is HTTP?
+
+    HTTP Basics
+        Hyper Text Transfer Protocol- rules for 2 devices communicating over internet
+        Like rules of a conversation
+        ex. Client- weather app, server- Node, Apache
+        domain name - is at an address, which the servers address (house), server has Internet Protocol address
+        http is the language, port # ex. 80 is specific type of comm (http)
+        http request is like going to a website in browser
+            telnet httpbin.org 80
+            GET / HTTP/1.1  // route, 1.1 version
+            Host: httpbin.org // URI 
+        404 if not found
+
+        HTTP Request format
+            Request line- Get or Post [uri] HTTP/[version]
+                // get to view, post to change
+            Header- [Header Name: [Header Value]
+                Host: httpbin.org
+                User-Agent: telnet
+            // blank line after header
+            // request body- for post, info to change
+
+        HTTP Response format
+            status line- HTTP/[version] [status code][status message]
+                    ex. 404 Not found, 202 Ok, 500 server error, 301 page moved
+            headers- [name]: [value] 
+                server: nginx
+                date: ... 
+                content-type: application/xml
+            blank line
+            response body- xml that comes back or html
+
+        HTTP has no memory of requests- stateless, applications can have the memory
+
+        Sending a GET request
+        GET /get?name=Ben&language=English HTTP/1.1 // query string passes additional data
+        Host: httpbin.org
+
+        Sending a POST request
+            POST /post HTTP/1.1
+            Host: httpbin.org
+            Content-Length:32
+
+            firstname=Chris&language=English
+
+        Browser is a GUI for HTTP
+            enriches HTTP experience
+
+            can see w/ Chrome DevTools
+                Network tab- filter for "Doc"/top for initial document
+                   general
+                        shows html item- http request- url, method, Response, IP address
+                    response headers- HTTP version, 200 Ok, etc.
+                    request headers
+                        show GET etc.
+
+        URL- Uniform Resource Locator- also information to obtain resourc- http://httpbin.org/xml (city state and address)
+        URI- Uniform Resource Identifier- /xml (just address)
+        HyperText Markup Language- HTML
+
+        can see get request when click a link in DevTools Network
+
+        get request with form-
+            method- get, action- URL to send to 
+            ex. search bar is a form
+            can watch it in DevTools
+            transfers search to query string
+
+        send post request with form
+            name element on input is sent with value
+            in Network on DevTools
+                response made into a big query string
+                ex. &custemail=abc@123.com& etc.
+        
+        post request has content type and length required
+            query string is below header instead of in request line above header
+
+        cookies- can provide memory
+        SSL- can encrypt http - for https website
+
+
+3. Browsers and how they work
+
+    -browsers are the most widely used software
+    -presents the web resource you choose, request from server and display
+        -usually HTML/CSS, but also PDF, image, etc.
+        -location of resource specified by URI
+    -largely same format- address bar, bookmarks, refresh, etc.
+    -components
+        -user interface- all of window except loaded page
+
+
+
+4. DNS and how it works
+
+
+
+5. What is Domain Name?
+
+
+
+6. What is hosting?

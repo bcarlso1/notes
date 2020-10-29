@@ -1,0 +1,103 @@
+1. Terminal Usages
+2. How OSs work in general
+3. Process Management
+4. Threads & Concurrency
+5. Basic Terminal Commands
+6. Memory Management7 Interpprocess Communication
+7. I/O Management
+8. POSIX Basics
+9. Basic Networking Concepts
+
+1. Terminal Usages
+
+Intro to the Terminal
+
+    control computer with just text, GUI's limited functions
+    run on command line interface (CLI)
+    Terminal app on Mac and UNIX commands system
+    Shell run called bash
+    Shell prompt- blinking box- single line to enter text- command line
+        displays name of current directory + $
+    ls // lists names of files 
+    ^C // Ctrl + C to  quit
+    whoami // shows user
+    clear or Ctrl + L // clears outputs
+    cd library // change to library file
+    cat statue.txt  bird.txt // prints contents of both files
+    echo abc // prints abc
+    cat 'file name with spaces.txt' // cat gets rid of spaces unless in quotes
+
+    Options
+        ls -a // shows hidden files (ex. .hidden.txt)
+        ls -t // sorts from newest to oldest
+        // can combine Options
+        ls --all // same as -a 
+
+       history - type history or up arrow 
+
+       tab completion- press tab key after first few letters- autocompletes
+
+    Directories/files
+
+        pwd // print working directory aka file path ex. home/treehouse/unit5
+        cd lesson1 // name of directory to change into  (child directory)
+            // ls will show contents of mall now
+        cd .. // moves back to parent directory 
+        cat mall/menu.txt // can print contents if do file path remaining from current location
+        cat menu.txt // if in mall file
+
+        absolute path- always the same
+            root directory, named "/", no name
+            cd /  // straight to root directory
+            cd /mall // can get to mall even if in /store 
+            cat /mall/menu.txt // can print contents of absolute path file even if not currently near file
+
+
+        Shortcuts
+            cd . // current file
+                ./hello.sh  // can be used to run file in current directory
+            ls .. // show contents of parent
+            cd ../dentist // (up to parent then down to other child)
+            cd ~ // goes to user account directory within home
+                // home directory intended on place for users to work within, not root
+            cd ~/mall // goes to home/user/mall
+
+        wildcard
+            echo *.txt // prints all .txt files
+            echo re*.txt // prints all txt files starting w re-
+            ls */ // contents of all Directories
+
+        commands
+            pager program
+                more terminal.txt // limits display- hit space to next pg, quits when at end 
+                less terminal.txt //shows top of file, space or arrows, q to quit
+
+            cp bird.txt pigeon.txt // take bird contents and paste into new pigeon file
+            cp bird.txt mall/   // makes bird.txt within mall file
+            cp bird.txt .. // pastes to parent 
+            cp -r offices more_offices // copies office directory and saves w new name
+                // r for recursive, copy offices file and its sub files
+            mv bird.txt sparrow.txt // renames
+            mv bird.txt offices // moves to offices folder 
+            mv *.txt .. // moves all contents up to parent 
+            rm bird.txt  // remove, no undo 
+            rm -r offices // removes file & contents
+            mkdir parks // new parks file
+            mkdir parks/playground/toys // makes 2 files within parks 
+
+            naming conventions 
+                lowercase, regular letters/#s and dash/underscore
+                no spaces or dots (unless hidden) 
+
+            look up documentation
+                man ls // manual, gives info on ex. ls command, arguments it accepts
+                q // quit 
+
+            find // searches current file and sub file
+            find -name "*.txt" // needs quotes finds matches
+            grep 'Mac' terminal.txt // finds lines that have match 
+            vi myfile.txt // text edit 
+                // press i, then type, then esc, 
+                // type : then w to write to file, : then q to quit 
+            nano myfile.txt // edit text by typing 
+                // shows commands - all Ctrl + (command letter)

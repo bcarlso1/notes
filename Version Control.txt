@@ -1,0 +1,154 @@
+1. Git Basics
+2. Github
+
+Git Basics
+
+Intro to Git
+
+    version control system- most popular one 
+        tracks all changes, can go to prior versions
+        folder is called a repository 
+        can clone project with full version history
+        can pull changes from others & synchronize- distributed system
+        snapshot is commit- version of project saved at point in time
+
+    use terminal
+    git needs to be installed
+        type- git for start
+    
+    git --help // prints help on using program 
+
+    git clone & git init // new repos 
+    git add, git status & git commit // committing new versions
+    git log // list of old commits
+    git mv & git rm // move and remove files 
+    git push & git pull // synchronize commits
+
+    
+    Initialize a Repo 
+
+        navigate to folder needed - containing project docs 
+         git init
+         ls -a // shows .git directory - don't edit directly 
+            // modify files, stage files, commit files - cycle
+        git status // whats current status- current files untracked 
+        git add metals.html // stages files
+        git status // metals doc to be committed
+        git commit -m "Add a site page" // commits, message attached to commit - says what commit is doing 
+        git config --global user.email "bcarlso1@gmail.com"
+        git config --global user.name "Ben Carlson"
+            // store to make commit
+            // confirms commit 
+        git log -p // shows lines added in each commit 
+        // if edit file 
+            git status // shows files not staged for commit 
+            // also make sure to add all untracked files 
+            git add medals.html // stages modified file 
+            git add bronze.html // stages new/untracked file
+            git status // show ready for commit 
+            git commit -m "Add bronze medals" // commit 
+
+
+            git diff // see changes btwn staging area and modified file 
+                // removed line -, + added, +/- changed
+                // then can confirm what to add as commit msg 
+                git diff --staged // specifies staged changes compare to committed 
+                     // if staged and then edited- it will show file status as staged AND not yet staged - run git add again 
+
+     Removing files
+
+        delete file from repo 
+            rm tin.html // delete the file, but not from repo 
+            git rm tin.html // deletes, change to be committed
+            git commit -m "remove tin" // commits
+
+    Moving files
+
+        git mv silver.txt silver.html // move/change from silver.txt to silver.html 
+        git commit -m "rename silver" // commits 
+
+    Unstaging 
+
+        git status // shows changes to be committed
+        git reset HEAD medals.html // now medals is back to "changes not staged" 
+            // git status shows this command 
+
+    Git Cycle- Committed- Modified - Staged 
+
+    Discard File Modifications 
+
+
+        git checkout -- medals.html // discards modified changes
+            // sends it back to committed state 
+
+        Undo File Deletions
+
+            rm silver.html // deleted
+            git status // shows "deleted: silver.html" and instructions to discard changes 
+            git checkout -- silver.html // command to undo, file is back
+
+        Commit SHAs 
+            Simple Hashing Algorithm- all changes im commit fed into algorithm
+            git log // shows commits and SHAs associated
+            git revert c02bf // type in partial SHA 
+                // creates a new commit reverting the old commit
+                // opens editor- shows instructions at bottom 
+                        Ctrl + O to Save/Write file  
+                        Enter to accept file name
+                        Ctrl + X to exit editor 
+                // shows as new commit in git log 
+
+            git revert HEAD // removes most recent commit 
+
+    Cloning a Repo 
+
+        local repo on your computer, remote repo on others computers 
+
+        to get latest version- pull remote changes 
+         
+        usually have a central repo- pull latest version from central
+            then push changes back to central 
+            like Github 
+
+        To clone- navigate to parent directory 
+            git clone medals myclone // name of directory and name of new directory
+            // new file called myclone w/ same files and git log 
+
+        Pull changes 
+
+          Need to create myclone as a remote repo 
+ 
+          // from myclone file     
+            git remote // shows only "origin" - represents original repo
+            git pull origin // OR git pull 
+            git log // shows latest commits 
+
+        
+            // set up myclone as a remote on medals repo 
+                send changes from myclone to medals 
+
+                // in medals file 
+                    git remote // nothing 
+                    git remote add myclone ../myclone // name and location for remote 
+                    git pull myclone master // pulls changes from myclone remote on master branch (default branch
+                    git log // shows myclone changes within medals file 
+
+    Push Commits in Github 
+
+        on Github- create new repository and name it 
+            add description and create repo 
+        
+        // in medals file
+        git remote add origin URL // copy URL to add from github for existing repo 
+        git push -u origin master // -u means send push commands to this repo as default, say repo name and branch
+            // enter user log in info when prompted 
+            // check github and will see files 
+            // next commit can just type - git push 
+
+
+        Github shows all files
+        main page shows commits and changes made in commit by clicking Commit SHA 
+        using URL of main page you can clone repo 
+
+        Clone 
+            git clone URL // copies repo 

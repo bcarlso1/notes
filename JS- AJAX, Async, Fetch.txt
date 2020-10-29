@@ -1,0 +1,612 @@
+
+
+AJAX Basics 
+
+     Asynchronous Javascript and XML - new info without loading new page 
+        usually much less info then loading a full page
+        request to server and response 
+
+        AKA XML HTTP Object (XHR) 
+
+        Asynchronous- processes while everything else running, if send multiple may come back in diff order 
+        JS- create request, send it, & process response
+        XML- data format 
+
+        1. create XML HTTP request Object
+        2. create callback function- process returned data- update screen 
+        3. open a request- get/post & URL to send request 
+        4.  send request to server 
+
+     AJAX need to run on a web server 
+
+     var request = new XMLHTTPRequest(); // creat the object
+        request.onreadystatechange = function () { // callback- runs each time there is a change in state of request 
+            if (request.readyState === 4 ) { 
+                document.getElementById("ajax").innerHTML = xhr.responseText; // displays response from server
+
+            }
+        };      
+        xhr.open('GET', "sidebar.html"); // open the request
+        function sendAJAX() {  // a button in the HTML has onClick of sendAJAX()
+             xhr.send(); // would pass additional data if completing a form etc.
+        }
+       
+        Can view in Chrome- Tools- Javascript Console- Log HTTP requests
+
+    GET and POST
+        get- receive info from server
+            can send query string in URL to send additional info for dynamic info
+                website.com/employee.php&lastName=Jones&firstName=Rita
+                convert special characters in query string
+                    & is %26
+                    space is +
+                    + is %2B
+            can't send sensitive info & limited characters 
+        post- send info to save- vote, email address to save
+            sends info in body- more secure- ex. form sign up 
+            need special header 
+
+    Web Servers respond to AJAX request with text response
+
+        ex. "form submitted succesfully" or could display a file 
+        need data structure for lots of results
+            XML- estensible markupp language- like HTML 
+                <contacts>
+                    <contact>
+                        <name>Joe // create tags- make up names
+            JSON- best when using JS
+        
+    AJAX Security Limitations
+        has issues requesting info from a different server
+        can't use w different hosts, etc.
+        create a web proxy- your server talks to other servers 
+            or JSONP- JSON with Padding- allows comm w other servers 
+                ex. CDNs- uses other server and you just use link 
+            or CORS- Cross Origin Resource Sharing 
+        AJAX needs a server- can't test in browser 
+
+
+    AJAX Callbacks
+
+        responds to change in ready state
+        event is onreadystatechange (ex.)
+        readyState is 0 to 4, 4 means server has sent everything 
+            // can also deal with other issues
+            if (request.readyState === 4) {
+                if (request.status === 200) {
+                 // print server response
+                } else if (request.status === 400) {
+                 alert(request.statusText) // file not found
+                } else if // 500 etc. etc. 
+ 
+
+    JSON- JS Object Notation
+        array or object notation 
+        list of items with key value pairs 
+        must be double quotes 
+        [
+            {
+                "name": "Ben",
+                "height": 74
+            },
+             {
+                "name": "Sven",
+                "height": 84
+            }
+        ]
+
+    Parsing JSON data 
+        convert string to JSON
+
+        var xhr = new XML HTTPREquest(); // step 1
+        xhr.onreadystatechange = function () { // callback- step 2
+            if (xhr.readState === 4) {
+                console.log(xhr.responseText); // ex. JSON- see in JS console
+                console.log(typeof xhr.responseText) // string, JSON, etc.
+                var employees = JSON.parse(xhr.respponseText) // turns string to JSON object 
+                // more here- see processing JSON
+            }
+        }
+        xhr.open('GET', 'data/employees.json'); // step 3- open request 
+        xhr.send(); // step 4 - send request- callback does nothing until this is done
+
+
+    Processing JSON 
+
+        create HTML/CSS mockup for what employee list (ex.) would look like 
+         ex. li tag with name and add class with in or out 
+
+         var statusHTML = '<ul class="bulleted">'; // start HTML to build on
+         for (var i = 0; i < employees.length; i += 1) { // check each employee and add to HTML variable
+            if (employee[i].inoffice === true) {
+                statusHTML += '<li class="in">';            
+            } else {
+                 statusHTML += '<li class="out">';     
+            }
+            statusHTML += employees[i].name;
+            statusHTML += '</li>'; // build HTML for each employee
+         }
+         statusHTML += '</ul>';
+         document.getElementById('employeeList').innerHTML = statusHTML; // insert into HTML
+
+        
+Asynchronous Javascript
+    usually used with callbacks 
+
+    callback functions
+        function passed into another (parent) function
+
+                function add(a, b, callback) {
+                    callback(a + b);
+                }
+
+                add(2, 4, function(sum) {
+                    console.log(sum); // 6
+                })
+
+        ex. 2
+                // greeting function that says Hello (name) 
+                // greeting passed in as callback in getname function
+                // asks for name then alerts Hello (name)
+
+                function getName(callback) {  // passes the callback function as a parameter
+                    const name = prompt('What is your name');
+                    callback(name);
+                }
+
+                function greeting(name) {
+                    alert('Hello, ' + name);
+                }
+
+                getUserName(greeting);
+
+
+        DOM events callbacs- ex. addEventListener
+        map(), filter(), etc. accept a callback like toUpperCase
+
+        Continuation passing style
+            can create confusing chain of callbacks 
+
+    Async & Callbacks 
+
+        btn.addEventListener('click', () => getJSON(astrosURL));
+            // button waits for click to show astronauts
+            // runs getJSON function to send request to api at URL 
+            
+    AJAX Callbacks
+
+        // AJAX Function
+        function getJSON(url) {
+            const xhr = new XMLHTTPRequest();
+            xhr.oen = () => {
+                if (xhr.status === 200) {
+                    let data = JSON.parse(xhr.responseText)
+                    console.log(data);
+                }
+            };
+            xhr.send();
+        }
+
+        // button triggering callback
+        btn.addEventListener('click', () => getJSON(astrosUrl));
+
+        // AJAX Function with callback
+        function getJSON(url, callback) {
+            const xhr = new XMLHTTPRequest();
+            xhr.oen = () => {
+                if (xhr.status === 200) {
+                    let data = JSON.parse(xhr.responseText)
+                    return callback(data);
+                }
+            };
+            xhr.send();
+        }
+
+        btn.addEventListener('click', () => { 
+            getJSON(astrosUrl, (json) => {  // json just represents the data 
+                console.log(json); // shows array of data from astrosURL
+                json.people.map( persom => {   // data on each person
+                    getJSON(wikiUrl + person.name, generateHTML)  // get data from wikipedia for that name
+                        // add generateHTML as a callback, no parens bc not executing right away - will run when data is available
+                })
+            });
+        });
+
+        function generateHTML(data) {
+            const section = document.createElement('section');
+            peopleList.appendChild(section);
+            section.innerHTML = `
+                <img src=${data.thumbnail.source}>
+                <h2>${data.title}</h2>
+                <p>${data.description}</p>
+                <p>${data.extract}</p>
+            `;
+        }
+
+        Step Through code
+            Chrome DevTools -> Source 
+                Event Listener Breakpoints -> mouse -> click
+            
+                Call Stack- shows anonymous fxn on event listener, shows getJSON request
+                Click "step into" arrow to see each step 
+
+        Nested Callbacks- can be very hard to understand 
+            ex. put map function in a separate function
+            promises can be more straightforward 
+
+    JS promises
+
+        eventual completion of an asynch operation- data from server 
+        like a pager that buzzes when food is ready or issue, vs callback- no pager 
+            guaranteed future value with a promise 
+            always either pending (waiting), fulfilled (success) or rejected (failed)
+
+        Create promise
+            3 steps - Promise() constructor, define action for fulfilled/rejected, consume fulfilled value or provide rejection reason 
+
+
+        const order = true;
+        
+        const breakfastPromise = new Promise( (resolve, reject) => {
+            setTimeout(() => {
+                if (order) {
+                    resolve ('order ready')
+                } else {
+                    reject( Error("Your order cannot be made'));
+                }
+            }, 3000);
+        });
+        breakfastPromise
+                .then( val => console.log(val)) 
+                .catch( err => console.log(err)) // err just means reject value
+        // val just means fulfillment value - whatever in resolve is availlable here
+            // after 3 sec says 'order ready'
+        // need catch to know if promise fails 
+
+        
+    Name Resolve/Reject Functions option 
+
+
+        function onResolve() {
+            console.log('Your order is ready. Come and get it!');
+            }
+
+        function onReject() {
+            console.log( Error('Oh noes! There was a problem with your order.') );
+            }
+
+
+        const breakfastPromise = new Promise( (resolve, reject) => {
+            setTimeout(() => {
+                if (order) {
+                resolve();
+                } else {
+                reject();
+                }
+            }, 3000);
+            });
+
+        const order = true;
+        breakfastPromise
+            .then(onResolve)
+            .catch(onReject)
+
+    Chaining promises
+
+        mathPromise
+            .then(addFive) // function that adds 5 if resolved
+            .then(double) // function that doubles if true
+            .then(finalValue) // function that prints value
+            .catch( err => console.log(err));
+            // can be cleaner than callbacks for sequence of operations
+
+
+    From Callback to Promises
+
+            // Callback version
+            function getJSON(url, callback) {
+            const xhr = new XMLHTTPRequest();
+            xhr.oen = () => {
+                if (xhr.status === 200) {
+                    let data = JSON.parse(xhr.responseText)
+                    return callback(data);
+                }
+            };
+            xhr.send();
+        }
+
+        function getProfiles(json) {
+            json.peole.map( person => {
+                getJSON(wkiUrl + person.name, generateHTML);
+            });
+        }
+        
+        btn.addEvenetListener('click', (event) => {
+            getJSON(astrosUrl, getProfiles);
+            event.target.remove();
+        })
+
+
+        function generateHTML(data) {
+            const section = document.createElement('section');
+            peopleList.appendChild(section);
+            section.innerHTML = `
+                <img src=${data.thumbnail.source}>
+                <h2>${data.title}</h2>
+                <p>${data.description}</p>
+                <p>${data.extract}</p>
+            `;
+        }
+
+    // Promise version 
+        function getJSON(url) {
+            return new Promise( (resolve, reject) => {
+                const xhr = new XMLHTTPRequest();
+                xhr.open = () => {
+                    if (xhr.status === 200) {
+                    let data = JSON.parse(xhr.responseText)
+                    resolve(data)
+                } else {
+                    reject( Error(xhr.statusText) );
+                }
+            };
+            xhr.onerror = () => reject( Error('An error occurred')); 
+                // covers network connection issues
+            xhr.send();
+            });
+        }
+
+               function getProfiles(json) {
+                    const profiles = json.peole.map( person => {
+                    return getJSON(wkiUrl + person.name);
+                    });
+                    return Promise.all(promises); // returns array with promises when all fulfilled
+                }
+                    
+            btn.addEvenetListener('click', (event) => {
+                event.target.textContent = "Loading..." // changes button to remove
+            getJSON(astrosUrl) // get data from API
+                .then(getprofiles) // get data from other API
+                 .then(generateHTML);  // add wiki data
+                .catch( err => {
+                    peopleList.innerHTML = '<h3>Something went wrong!</h3>';       
+                    console.log(err)
+                })
+                .finally( () => event.target.remove() ); // removes button when done 
+            })
+
+        function generateHTML(data) {
+            data.map( person => {  // person represents each person object 
+                 const section = document.createElement('section');
+                peopleList.appendChild(section);
+                section.innerHTML = `
+                    <img src=${person.thumbnail.source}>
+                    <h2>${person.title}</h2>
+                    <p>${person.description}</p>
+                    <p>${person.extract}</p>
+                `;
+            })
+        }
+
+    Fetch- new way to work with promises 
+
+        fetch(URL)
+            .then( response => response.json() )
+        
+        function getProfiles(json) {
+            const profiles = json.people.map( person => {
+                const craft = person.craft; // also get spacecraft data
+                return fetch(wikiUrl + person.name)
+                    .then(response => response.json() )
+                    .then( profile => {
+                        return { ...profile, craft } // ...profile copies all props from profile obj, add craft 
+                    })
+            })
+            .catch(err +. console.log('Error', err))
+        }
+
+    Async/Await 
+
+        async - async function
+            await, waits for a returned promise, waits and parses to json
+            promises without then 
+
+        
+        async function getPeopleinSpace(url) {
+            const peopleResponse = await fetch(url); // retrieve people
+            const peopleJSON = await peopleResponse.json() // parse to JSON
+
+            const profiles = peopleJSON.people.map( async (person) => { // go through each person, mark map as async function since using await
+                    const craft = person.craft;
+                    const profileResponse = await fetch(wikiUrl + person.name); // get wikipedia URL for each person 
+                    const profileJSON = await profileResponse.json(); // convert to JSON 
+                    return { ...profileJSON, craft }; // get everything from profileJSON, add craft values
+             })
+
+             return Promise.all(profiles); // return data when all map calls are done before returning data
+        }
+
+
+        // in button event listener
+        btn.addEventListener('click', async (event) => {
+            const astros = await getPeopleinSpace(astrosUrl); // wait for promise return
+            generateHTML(astros); // add to HTML
+            event.target.remove(); // remove button
+        })
+
+
+        Async just returns a promise 
+            supplement to promises 
+            can combine with then method 
+            ex. can get rid of async await in button, still workss
+
+                // in button event listener
+            btn.addEventListener('click', (event) => {
+            
+            getPeopleinSpace(astrosUrl); 
+                .then(generateHTML); // add to HTML
+                .finally( () => event.target.remove()); // remove button
+            })
+
+        Error handling with catch
+
+            // make separate function for error handling
+            async function getJSON(url) {
+                try {
+                    const response = await fetch(url);
+                } catch (error) {
+                    throw error;
+                }
+            }
+
+
+            async function getPeopleinSpace(url) {
+                const peopleJSON = await getJSON(url); // runs function through try catch
+                const profiles = peopleJSON.people.map( async (person) => { // go through each person, mark map as async function since using await
+                        const craft = person.craft;
+                        const profileJSON = await getJSON(wikiUrl + person.name) // go through getJSON
+                        return { ...profileJSON, craft }; // get everything from profileJSON, add craft values
+                })
+
+                return Promise.all(profiles); // return data when all map calls are done before returning data
+            }
+
+              // in button event listener
+            btn.addEventListener('click', (event) => {
+            
+            getPeopleinSpace(astrosUrl); 
+                .then(generateHTML); // add to HTML
+                // errors caught above in try catch will bubble up to here->
+                .catch( e => {
+                    peopleList.innerHTML = '<h3>Error</h3>';
+                    console.error(e);
+                })
+                .finally( () => event.target.remove()); // remove button
+            })
+
+
+
+Fetch API 
+    AJAX alternative- can be cleaner code, uses JS promises 
+    
+
+    fetch('url') // fetch takes api URL as argument 
+        .ex. dogs API url 
+        fetch('http..')
+            // returns a promise 
+            // chain then methods 
+            .then(response => response.json())
+                // returns response object, parse to JSON
+           // .then(data => console.log(data.message)) // logs the message field of retrieved info 
+            .then(data => generateImage(data.message));
+
+
+    fetch('http...') // breeds list
+        .then(response => response.json())
+        .then(data => generateOptions(data.message))
+
+            function generateImage(data) {
+                const html = `
+                    <img src='${data}' alt>
+                    <p>Click to view images of ${select.value}s</p> / displays value of what currently showing
+                    `;
+                card.innerHTML = html;
+            }      
+
+            function generateOptions(data) { // fill in select menu
+                const options = data.map(item => `
+                <option value='${item}'>${item}</option>
+                `).join(''); // gets rid of commas 
+                select.innerHTML = options;
+            } 
+
+    Create Reusable Fetch 
+
+        function fetchData(url) {
+            return fetch(url)
+                .then(checkStatus) // see fxn below
+                .then(res => res.json())
+                .catch(error => console.log('Error, error)); // shows error message and object if an issue 
+        }
+
+        // also check for HTTP error 
+        function checkStatus(response) {
+            if(response.ok) {  // ok/200 is true
+                return Promise.resolve(response);
+            } else {
+                return Promise.reject(new Error(response.statusText)); // will trigger catch 
+            }
+        }
+
+        // now for other fetches can call fetchData and remove parsing then's 
+        fetchData('http...')
+            .then(data => generateImage(data.message))
+           
+
+    // get random photo of breeds
+        function fetchBreedImage() {
+            const breed = select.value // get value from select menu
+            const img = card.querySelector('img');
+            const p = card.querySelector('p')
+        }
+
+        fetchData('https.../breed/${breed}/images/random`) // pull random image of selected breed 
+            .then(data => {
+                img.src = data.message;
+                img alt = breed;
+                p.textContent = `Click to view more ${breed}s`;
+
+            })
+
+        select.addEventListener('change', fetchBreedImage); // change in select drop down
+        card.addEventListener('click', fetchBreedImage) // click on text saying show new image
+
+    Promise.all
+        convert 2 promises to Promise.all
+        drawback is neither will show if one fails
+            best if need both to load or none
+
+        Promise.all([
+            fetchData('http..'),
+            fetchData('http..')
+        ])
+        .then(data => {
+            // separate the 2 fetch requests from 1 JSON 
+            const breedList = data[0].message;
+            const randomImage = data[1].message;
+
+            generateOptions(breedList);
+            generateImage(randomImage);
+        })
+
+    Post data with Fetch
+        add comment to request to post 
+
+        function postData(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const comment = document.getElementById('comment').value;
+       
+        const config = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: name, comment: comment}) // convert to string
+
+        }
+               
+        fetch('http...', config)
+            .then(checkStatus)
+            .then(res => res.json())
+            .then(data => console.log(data));
+        }
+
+        // eventlistener with postData function on form submit
+
+
+
+            
+
+
+

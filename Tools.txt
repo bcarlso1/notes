@@ -1,6 +1,7 @@
 Projects
 
 dog API
+appointment booking
 weather API
 get latest tweets
 create express card app with card sets, connect to database, add users/authenticiation
@@ -20,7 +21,8 @@ Servers
         https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server#Running_a_simple_local_HTTP_server
         navigate to file in terminal and enter => python -m SimpleHTTPServer
 
-    npm http-server
+    npm http-server (npx http-server to run without install)
+        (-c-1 disables cache)
 
     To test AJAX requests locally, on your own computer, you'll need to setup a development server, and preview your pages from your computer using a URL like: http://localhost/
             Treehouse has a couple of videos helping you set this kind of development environment:
